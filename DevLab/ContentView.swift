@@ -49,15 +49,6 @@ struct HomeView: View {
     }
 }
 
-struct TechnologiesView: View {
-    var body: some View {
-        NavigationView {
-            Text("🏗️ Browse by Technology (Swift, UIKit, AudioKit, etc.)")
-                .navigationTitle("Technologies")
-        }
-    }
-}
-
 struct DemosView: View {
     var body: some View {
         NavigationView {
@@ -84,7 +75,6 @@ struct SettingsView: View {
         }
     }
 }
-
 
 #Preview {
     ContentView()
