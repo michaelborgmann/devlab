@@ -1,0 +1,47 @@
+[
+    {
+        "ecosystem": "Apple",
+        "systemImage": "applelogo",
+        "technologies": [
+            {
+                "name": "SwiftUI",
+                "sections": [
+                    {
+                        "name": "Views",
+                        "demos": [
+                            { "title": "Button", "view": "SwiftUI_Button_DemoView" },
+                            { "title": "Label", "view": "SwiftUI_Label_DemoView" },
+                        ]
+                    },
+                    {
+                        "name": "Navigation",
+                        "demos": [
+                            { "title": "Tabs", "view": "SwiftUI_TabView_DemoView" },
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "UIKit",
+                "sections": [
+                    {
+                        "name": "Views & Controls",
+                        "demos": [
+                            { "title": "Button", "view": "SwiftUI_Button_DemoView" },
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "ecosystem": "3rd Party",
+        "systemImage": "square.and.arrow.up.on.square.fill",
+        "technologies": []
+    },
+    {
+        "ecosystem": "Web",
+        "systemImage": "app.badge.checkmark",
+        "technologies": []
+    }
+]
