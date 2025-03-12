@@ -20,7 +20,12 @@ struct TechnologyDetailView: View {
     private func technologyRows() -> some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 20) {
-                if !technology.sections.isEmpty {
+                
+                if technology.sections.isEmpty {
+                    Text("No technology sections available.")
+                        .padding()
+                        .foregroundColor(.gray)
+                } else {
                     ForEach(technology.sections) { section in
                         VStack(alignment: .leading) {
                             Text(section.name)
@@ -32,10 +37,6 @@ struct TechnologyDetailView: View {
                         }
                         .padding(.bottom, 20)
                     }
-                } else {
-                    Text("No technology sections available.")
-                        .padding()
-                        .foregroundColor(.gray)
                 }
             }
         }
@@ -53,48 +54,56 @@ struct TechnologyDetailView: View {
                         .padding(.leading, 16)
                 } else {
                     ForEach(section.demos) { demo in
-                        NavigationLink(destination: demoFactory(for: demo.view)) {
-                            CardView(title: demo.title, background: AnyView(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [.purple, .blue]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            )
+                        if let demoView = demoFactory(for: demo.view) {
+                            NavigationLink(destination: demoView) {
+                                demoCard(title: demo.title, colors: [.purple, .blue])
+                            }
+                        } else {
+                            Button {
+                                viewModel.error = TechnologyViewModel.Error.demoNotFound(demoName: demo.title)
+                            } label: {
+                                demoCard(title: demo.title, colors: [.red, .orange])
+                            }
                         }
                     }
+                    
+                    Spacer().frame(width: 0)
                 }
-                
-                Spacer().frame(width: 0)
             }
         }
         .scrollClipDisabled()
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    @ViewBuilder func demoFactory(for demoName: String) -> some View {
+    @ViewBuilder
+    func demoCard(title: String, colors: [Color]) -> some View {
+        CardView(
+            title: title,
+            background: AnyView(
+                LinearGradient(
+                    gradient: Gradient(colors: colors),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+        )
+    }
+    
+    func demoFactory(for demoName: String) -> AnyView? {
         switch demoName {
         case "SwiftUI_Button_DemoView":
-            SwiftUI_Button_DemoView()
+            AnyView(SwiftUI_Button_DemoView())
         default:
-            VStack {
-                Text("`\(demoName)` not found")
-                    .foregroundColor(.red)
-                    .onAppear {
-                        viewModel.error = TechnologyViewModel.Error.demoNotFound(demoName: demoName)
-                    }
-                    .errorAlert(error: $viewModel.error)
-            }
+            nil
         }
     }
 }
 
 #Preview {
     
-    let viewModel = TechnologyViewModel()
+    @Previewable var viewModel = TechnologyViewModel()
     try? viewModel.loadTechnologies()
-
+    
     return NavigationView {
         if let ecosystem = viewModel.ecosystems.first,
            let technology = ecosystem.technologies.first
@@ -104,4 +113,5 @@ struct TechnologyDetailView: View {
             Text("No ecosystem")
         }
     }
+    .errorAlert(error: .constant(viewModel.error))
 }
