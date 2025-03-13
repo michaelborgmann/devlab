@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SwiftUI_Button_Styling_DemoView: View {
     
+    @Binding var subtitle: String?
+    
     var body: some View {
         VStack {
             Button(action: {
@@ -23,10 +25,12 @@ struct SwiftUI_Button_Styling_DemoView: View {
                     .shadow(radius: 10)
             }
         }
-        .navigationTitle("Button Styling")
+        .onAppear {
+            subtitle = "Button Styling"
+        }
     }
 }
 
 #Preview {
-    SwiftUI_Button_Styling_DemoView()
+    SwiftUI_Button_Styling_DemoView(subtitle: .constant(nil))
 }

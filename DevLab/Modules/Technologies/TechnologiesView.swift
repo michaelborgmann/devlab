@@ -20,7 +20,7 @@ struct TechnologiesView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 ecosystemPicker
                 technologyRows()

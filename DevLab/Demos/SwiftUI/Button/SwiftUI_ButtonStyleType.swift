@@ -16,21 +16,21 @@ enum ButtonStyleType: String, CaseIterable {
     case plain = "Plain"
     
     @ViewBuilder
-    func style() -> some View {
+    func style(_ action: @escaping () -> Void) -> some View {
         switch self {
         case .automatic:
-            Button("Tap Me") { print("Button tapped!") }
+            Button("Tap Me") { action() }
         case .bordered:
-            Button("Tap Me") { print("Button tapped!") }
+            Button("Tap Me") { action() }
                 .buttonStyle(.bordered)
         case .borderedProminent:
-            Button("Tap Me") { print("Button tapped!") }
+            Button("Tap Me") { action() }
                 .buttonStyle(.borderedProminent)
         case .borderless:
-            Button("Tap Me") { print("Button tapped!") }
+            Button("Tap Me") { action() }
                 .buttonStyle(.borderless)
         case .plain:
-            Button("Tap Me") { print("Button tapped!") }
+            Button("Tap Me") { action() }
                 .buttonStyle(.plain)
         }
     }
