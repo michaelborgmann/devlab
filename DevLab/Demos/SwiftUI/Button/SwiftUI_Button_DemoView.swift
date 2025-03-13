@@ -14,6 +14,7 @@ struct SwiftUI_Button_DemoView: View {
     @State private var toastMessage = ""
     @State private var showInfo = false
     @State private var subtitle: String?
+    @Binding var viewModel: TechnologyViewModel
     
     var body: some View {
         VStack {
@@ -48,9 +49,9 @@ struct SwiftUI_Button_DemoView: View {
             }
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Button_InfoView()
+            SwiftUI_Button_InfoView(viewModel: $viewModel)
         }
-        .navigationTitle("Button Demo")
+        .navigationTitle("Button")
     }
     
     @ViewBuilder var toast: some View {
@@ -68,10 +69,12 @@ struct SwiftUI_Button_DemoView: View {
     }
 }
 
-struct ButtonDemoView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SwiftUI_Button_DemoView()
-        }
+#Preview {
+    
+    @Previewable var viewModel = TechnologyViewModel()
+    try? viewModel.loadTechnologies()
+    
+    return NavigationStack {
+        SwiftUI_Button_DemoView(viewModel: .constant(viewModel))
     }
 }

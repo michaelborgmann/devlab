@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4CA9AF8F2D83084800A87FF4 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA9AF8E2D83084800A87FF4 /* MarkdownUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4CB2C30E2D709DBD008D9CAB /* DevLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CA9AF8F2D83084800A87FF4 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = DevLab;
 			packageProductDependencies = (
+				4CA9AF8E2D83084800A87FF4 /* MarkdownUI */,
 			);
 			productName = DevLab;
 			productReference = 4CB2C30E2D709DBD008D9CAB /* DevLab.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 4CB2C3052D709DBD008D9CAB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4CA9AF8D2D83084800A87FF4 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4CB2C30F2D709DBD008D9CAB /* Products */;
 			projectDirPath = "";
@@ -341,6 +350,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4CA9AF8D2D83084800A87FF4 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4CA9AF8E2D83084800A87FF4 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CA9AF8D2D83084800A87FF4 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4CB2C3062D709DBD008D9CAB /* Project object */;
 }

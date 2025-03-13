@@ -87,17 +87,6 @@ struct PracticesView: View {
     }
 }
 
-struct SettingsView: View {
-    var body: some View {
-        NavigationStack {
-            Text("⚙️ Feature Flags & Preferences")
-                .navigationTitle("Settings")
-                .accessibilityLabel("App settings and preferences.")
-                .accessibilityHint("Configure feature flags and user preferences.")
-        }
-    }
-}
-
 #Preview {
     ContentView()
 }

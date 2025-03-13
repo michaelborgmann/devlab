@@ -92,7 +92,7 @@ struct TechnologyDetailView: View {
     func demoFactory(for demoName: String) -> AnyView? {
         switch demoName {
         case "SwiftUI_Button_DemoView":
-            AnyView(SwiftUI_Button_DemoView())
+            AnyView(SwiftUI_Button_DemoView(viewModel: $viewModel))
         default:
             nil
         }
