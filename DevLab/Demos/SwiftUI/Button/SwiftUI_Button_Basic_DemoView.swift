@@ -9,8 +9,6 @@ import SwiftUI
 
 struct SwiftUI_Button_Basic_DemoView: View {
     
-    @State private var buttonText = "Tap me!"
-    @State private var count = 0
     @State private var selectedStyle: ButtonStyleType = .automatic
     
     @Binding var showToast: Bool
@@ -19,29 +17,36 @@ struct SwiftUI_Button_Basic_DemoView: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            
+
             Text("A basic button that triggers an action.")
                 .font(.headline)
+                .accessibilityLabel("A basic button that triggers an action.")
+                .accessibilityHint("Choose a button style from the list below.")
             
             ButtonStyleType.selector(selectedStyle: $selectedStyle)
             
             Spacer()
             
-            selectedStyle.style() {
-                
-                toastMessage = "Button Pressed"
-                showToast = true
-                
-                Task {
-                    try? await Task.sleep(for: .seconds(1))
-                    showToast = false
-                }
-            }
+            selectedStyle.style(showToastMessage)
             
             Spacer()
         }
         .onAppear {
             subtitle = "Basic Button"
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Basic Button Demo. Select a button style and trigger an action.")
+        .accessibilityHint("Select a style to see a corresponding button in action.")
+    }
+    
+    private func showToastMessage() {
+        
+        toastMessage = "Button Pressed"
+        showToast = true
+        
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            showToast = false
         }
     }
 }
@@ -55,7 +60,7 @@ struct SwiftUI_Button_Basic_DemoView: View {
     }
     .overlay {
         Text(toastMessage)
-            .toast(showToast: $showToast)
+            .toast(showToast: $showToast, toastMessage: $toastMessage)
     }
     .animation(.easeInOut, value: showToast)
 }

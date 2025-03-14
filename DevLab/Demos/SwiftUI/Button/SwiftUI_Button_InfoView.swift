@@ -20,32 +20,50 @@ struct SwiftUI_Button_InfoView: View {
                 ProgressView("Loading...")
                     .progressViewStyle(CircularProgressViewStyle())
                     .padding()
+                    .accessibilityLabel("Content is loading.")
+                    .accessibilityValue("Loading content, please wait.")
             } else {
                 Markdown(markdown)
                     .padding()
                     .font(.body)
+                    .accessibilityLabel("Markdown content.")
+                    .accessibilityValue("The markdown content has been loaded.")
             }
         }
         .errorAlert(error: $error)
         .onAppear {
             loadMarkdownFile()
         }
+        .onChange(of: isLoading) { _, isLoading in
+            if !isLoading {
+                UIAccessibility.post(notification: .announcement, argument: "Markdown content has been successfully loaded.")
+            }
+        }
+        .onChange(of: error?.localizedDescription) { oldValue, newValue in
+            if let newDescription = newValue, newDescription != oldValue {
+                UIAccessibility.post(notification: .announcement, argument: "Error: \(newDescription)")
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Information view with markdown content.")
+        .accessibilityHint("This view displays content related to button demos.")
     }
     
     private func loadMarkdownFile(filename: String = "SwiftUI_Button_Demo", fileType type: String = "md") {
         
-        defer { isLoading = false }
-        
         isLoading = true
         
-        if let filePath = Bundle.main.path(forResource: filename, ofType: type) {
-            do {
-                markdown = try String(contentsOfFile: filePath, encoding: .utf8)
-            } catch {
-                self.error = SettingsViewModel.Error.loadingFailure(filename: filePath)
-            }
-        } else {
+        defer { isLoading = false }
+        
+        guard let filePath = Bundle.main.path(forResource: filename, ofType: type) else {
             error = SettingsViewModel.Error.fileNotFound(filename: "\(filename).\(type)")
+            return
+        }
+        
+        do {
+            markdown = try String(contentsOfFile: filePath, encoding: .utf8)
+        } catch {
+            self.error = SettingsViewModel.Error.loadingFailure(filename: filePath)
         }
     }
 }

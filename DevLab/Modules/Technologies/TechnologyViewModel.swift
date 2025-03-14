@@ -28,7 +28,7 @@ class TechnologyViewModel {
                 ecosystems = loadedEcosystems
                 selectedEcosystem = ecosystems.first?.name
             } catch {
-                throw Error.failedLoadingData(message: error.localizedDescription, filename: "technologies.json")
+                self.error = Error.failedLoadingData(message: error.localizedDescription, filename: "technologies.json")
             }
         }
     }

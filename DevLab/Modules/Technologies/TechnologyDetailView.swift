@@ -15,6 +15,8 @@ struct TechnologyDetailView: View {
     var body: some View {
         technologyRows()
             .navigationTitle(technology.name)
+            .accessibilityLabel("Technology details for \(technology.name).")
+            .accessibilityHint("Displays available sections and demos for the selected technology.")
     }
     
     private func technologyRows() -> some View {
@@ -25,6 +27,8 @@ struct TechnologyDetailView: View {
                     Text("No technology sections available.")
                         .padding()
                         .foregroundColor(.gray)
+                        .accessibilityLabel("No sections available for this technology.")
+                        .accessibilityHint("There are no sections to display.")
                 } else {
                     ForEach(technology.sections) { section in
                         VStack(alignment: .leading) {
@@ -32,6 +36,8 @@ struct TechnologyDetailView: View {
                                 .font(.headline)
                                 .padding(.top, 10)
                                 .padding(.leading, 16)
+                                .accessibilityLabel("Section: \(section.name)")
+                                .accessibilityHint("Tap to see demos related to this section.")
                             
                             horizontalScroller(for: section)
                         }
@@ -52,17 +58,23 @@ struct TechnologyDetailView: View {
                     Text("No demos available for this section.")
                         .foregroundColor(.gray)
                         .padding(.leading, 16)
+                        .accessibilityLabel("No demos available.")
+                        .accessibilityHint("There are no demos to show for this section.")
                 } else {
                     ForEach(section.demos) { demo in
                         if let demoView = demoFactory(for: demo.view) {
                             NavigationLink(destination: demoView) {
                                 demoCard(title: demo.title, colors: [.purple, .blue])
+                                    .accessibilityLabel("Demo: \(demo.title)")
+                                    .accessibilityHint("Tap to view the demo titled \(demo.title).")
                             }
                         } else {
                             Button {
                                 viewModel.error = TechnologyViewModel.Error.demoNotFound(demoName: demo.title)
                             } label: {
                                 demoCard(title: demo.title, colors: [.red, .orange])
+                                    .accessibilityLabel("Demo: \(demo.title)")
+                                    .accessibilityHint("This demo is currently unavailable.")
                             }
                         }
                     }

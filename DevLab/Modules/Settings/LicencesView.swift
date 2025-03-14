@@ -21,30 +21,48 @@ struct LicencesView: View {
                 ProgressView("Loading...")
                     .progressViewStyle(CircularProgressViewStyle())
                     .padding()
+                    .accessibilityLabel("Content is loading.")
+                    .accessibilityValue("Loading content, please wait.")
             } else {
                 Markdown(licenceText)
                     .padding()
                     .font(.body)
+                    .accessibilityLabel("Markdown content.")
+                    .accessibilityValue("The markdown content has been loaded.")
             }
         }
         .navigationTitle("Third-Party Licenses")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: { loadLicenses() })
+        .onChange(of: isLoading) { _, isLoading in
+            if !isLoading {
+                UIAccessibility.post(notification: .announcement, argument: "Markdown content has been successfully loaded.")
+            }
+        }
+        .onChange(of: viewModel.error?.localizedDescription) { oldValue, newValue in
+            if let newDescription = newValue, newDescription != oldValue {
+                UIAccessibility.post(notification: .announcement, argument: "Error: \(newDescription)")
+            }
+        }
+        .accessibilityLabel("Information view with markdown content.")
+        .accessibilityHint("This view displays information about third-party licenses used in the app.")
     }
 
     private func loadLicenses(filename: String = "THIRD_PARTY_LICENSES", fileType type: String = "md") {
-        if let filePath = Bundle.main.path(forResource: filename, ofType: type) {
-            
-            isLoading.toggle()
-            
-            do {
-                licenceText = try String(contentsOfFile: filePath, encoding: .utf8)
-            } catch {
-                viewModel.error = SettingsViewModel.Error.loadingFailure(filename: filePath)
-            }
-        } else {
-            isLoading.toggle()
+        
+        isLoading = true
+        
+        defer { isLoading = false }
+        
+        guard let filePath = Bundle.main.path(forResource: filename, ofType: type) else {
             viewModel.error = SettingsViewModel.Error.fileNotFound(filename: "\(filename).\(type)")
+            return
+        }
+        
+        do {
+            licenceText = try String(contentsOfFile: filePath, encoding: .utf8)
+        } catch {
+            viewModel.error = SettingsViewModel.Error.loadingFailure(filename: filePath)
         }
     }
 }

@@ -22,7 +22,7 @@ struct CardView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
             )
             .shadow(color: .black.opacity(0.2), radius: 5, x: 3, y: 3)
-            .accessibilityLabel(Text(title))
+            .accessibilityLabel(title)
             .accessibilityAddTraits(.isButton)
     }
 }

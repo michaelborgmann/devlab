@@ -20,18 +20,23 @@ enum ButtonStyleType: String, CaseIterable {
         switch self {
         case .automatic:
             Button("Tap Me") { action() }
+                .accessibilityLabel("Tap the Automatic Button")
         case .bordered:
             Button("Tap Me") { action() }
                 .buttonStyle(.bordered)
+                .accessibilityLabel("Tap the Bordered Button")
         case .borderedProminent:
             Button("Tap Me") { action() }
                 .buttonStyle(.borderedProminent)
+                .accessibilityLabel("Tap the Bordered Prominent Button")
         case .borderless:
             Button("Tap Me") { action() }
                 .buttonStyle(.borderless)
+                .accessibilityLabel("Tap the Borderless Button")
         case .plain:
             Button("Tap Me") { action() }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Tap the Plain Button")
         }
     }
     
@@ -41,6 +46,7 @@ enum ButtonStyleType: String, CaseIterable {
         VStack {
             Text("Select a Button Style")
                 .font(.callout)
+                .accessibilityLabel("Select a button style")
             
             ScrollView(.horizontal, showsIndicators: false) {
                 
@@ -63,10 +69,13 @@ enum ButtonStyleType: String, CaseIterable {
                                         .stroke(selectedStyle.wrappedValue == style ? Color.blue : Color.clear, lineWidth: 2)
                                 )
                         }
+                        .accessibilityLabel("Select \(style.rawValue) Style")
+                        .accessibilityAddTraits(selectedStyle.wrappedValue == style ? .isSelected : [])
                     }
                     Spacer().frame(width: 0)
                 }
             }
+            .accessibilityValue("Current style: \(selectedStyle.wrappedValue.rawValue)")
         }
     }
 }

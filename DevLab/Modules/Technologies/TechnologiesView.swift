@@ -26,13 +26,15 @@ struct TechnologiesView: View {
                 technologyRows()
             }
             .navigationTitle("Technologies")
+            .accessibilityLabel("Technologies screen")
+            .accessibilityHint("Select an ecosystem to view its technologies and demos.")
             .errorAlert(error: $viewModel.error)
         }
         .onAppear() {
             do {
                 try viewModel.loadTechnologies()
             } catch {
-                
+                UIAccessibility.post(notification: .announcement, argument: "Failed to load technologies.")
             }
         }
     }
@@ -46,6 +48,7 @@ struct TechnologiesView: View {
             }
         }
         .accessibilityLabel(LocalizedStringKey("Ecosystem Picker"))
+        .accessibilityHint(LocalizedStringKey("Select a technology ecosystem to view the available technologies"))
         .pickerStyle(SegmentedPickerStyle())
         .padding()
     }
@@ -61,6 +64,8 @@ struct TechnologiesView: View {
                                 .font(.headline)
                                 .padding(.top, 10)
                                 .padding(.leading, 16)
+                                .accessibilityLabel("Technology: \(technology.name)")
+                                .accessibilityHint("Tap to view sections and demos for this technology.")
                             
                             horizontalScrollingList(for: technology)
                         }
@@ -70,6 +75,8 @@ struct TechnologiesView: View {
                     Text("No technologies available.")
                         .padding()
                         .foregroundColor(.gray)
+                        .accessibilityLabel("No technologies available for the selected ecosystem.")
+                        .accessibilityHint("There are no technologies available in this ecosystem.")
                 }
             }
         }

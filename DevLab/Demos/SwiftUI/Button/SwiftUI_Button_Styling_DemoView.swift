@@ -24,9 +24,13 @@ struct SwiftUI_Button_Styling_DemoView: View {
                     .cornerRadius(16)
                     .shadow(radius: 10)
             }
+            .accessibilityLabel("Styled Button")
+            .accessibilityHint("Taps this button to trigger an action.")
+            .accessibilityAddTraits(.isButton)
         }
         .onAppear {
             subtitle = "Button Styling"
+            UIAccessibility.post(notification: .announcement, argument: "Button Styling")
         }
     }
 }

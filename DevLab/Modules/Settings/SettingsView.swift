@@ -21,12 +21,19 @@ struct SettingsView: View {
             
             List {
                 
-                Section(header: Text("Information")) {
+                Section(header: Text("Information")
+                    .accessibilityLabel("Section header for Information settings.")
+                    .accessibilityHint("Contains links related to the app's information."))
+                {
                     NavigationLink("3rd-Party Licenses", destination: LicencesView(viewModel: $viewModel))
+                        .accessibilityLabel("View 3rd-Party Licenses")
+                        .accessibilityHint("Tap to view the licenses for third-party libraries used in the app.")
+
                 }
             }
         }
         .errorAlert(error: $viewModel.error)
+        .accessibilityElement(children: .combine)
     }
 }
 
