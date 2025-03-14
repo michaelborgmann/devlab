@@ -9,12 +9,10 @@ import SwiftUI
 
 struct SwiftUI_Button_DemoView: View {
     
-    @State private var labelText = "Tap the button!"
     @State private var showToast = false
     @State private var toastMessage = ""
     @State private var showInfo = false
     @State private var subtitle: String?
-    @Binding var viewModel: TechnologyViewModel
     
     var body: some View {
         VStack {
@@ -30,8 +28,10 @@ struct SwiftUI_Button_DemoView: View {
             .indexViewStyle(
                 PageIndexViewStyle(backgroundDisplayMode: .always))
             .overlay {
-                toast
+                Text(toastMessage)
+                    .toast(showToast: $showToast)
             }
+            .animation(.easeInOut, value: showToast)
         }
         .toolbar {
             if let subtitle = subtitle {
@@ -49,32 +49,12 @@ struct SwiftUI_Button_DemoView: View {
             }
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Button_InfoView(viewModel: $viewModel)
+            SwiftUI_Button_InfoView()
         }
         .navigationTitle("Button")
-    }
-    
-    @ViewBuilder var toast: some View {
-        VStack {
-            if showToast {
-                Spacer()
-                Text(toastMessage)
-                    .padding()
-                    .background(Color.black.opacity(0.7), in: RoundedRectangle(cornerRadius: 10))
-                    .foregroundColor(.white)
-                    .transition(.move(edge: .bottom))
-                    .animation(.easeInOut, value: showToast)
-            }
-        }
     }
 }
 
 #Preview {
-    
-    @Previewable var viewModel = TechnologyViewModel()
-    try? viewModel.loadTechnologies()
-    
-    return NavigationStack {
-        SwiftUI_Button_DemoView(viewModel: .constant(viewModel))
-    }
+    SwiftUI_Button_DemoView()
 }

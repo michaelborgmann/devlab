@@ -28,10 +28,12 @@ struct SwiftUI_Button_Basic_DemoView: View {
             Spacer()
             
             selectedStyle.style() {
+                
                 toastMessage = "Button Pressed"
                 showToast = true
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                Task {
+                    try? await Task.sleep(for: .seconds(1))
                     showToast = false
                 }
             }
@@ -45,5 +47,15 @@ struct SwiftUI_Button_Basic_DemoView: View {
 }
 
 #Preview {
-    SwiftUI_Button_Basic_DemoView(showToast: .constant(true), toastMessage: .constant("Button Pressed Toast Message"), subtitle: .constant(nil))
+    @Previewable @State var showToast = false
+    @Previewable @State var toastMessage = ""
+    
+    VStack {
+        SwiftUI_Button_Basic_DemoView(showToast: $showToast, toastMessage: $toastMessage, subtitle: .constant(nil))
+    }
+    .overlay {
+        Text(toastMessage)
+            .toast(showToast: $showToast)
+    }
+    .animation(.easeInOut, value: showToast)
 }
