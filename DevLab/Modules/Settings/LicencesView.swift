@@ -32,18 +32,10 @@ struct LicencesView: View {
             }
         }
         .navigationTitle("Third-Party Licenses")
+        #if !os(macOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .onAppear(perform: { loadLicenses() })
-        .onChange(of: isLoading) { _, isLoading in
-            if !isLoading {
-                UIAccessibility.post(notification: .announcement, argument: "Markdown content has been successfully loaded.")
-            }
-        }
-        .onChange(of: viewModel.error?.localizedDescription) { oldValue, newValue in
-            if let newDescription = newValue, newDescription != oldValue {
-                UIAccessibility.post(notification: .announcement, argument: "Error: \(newDescription)")
-            }
-        }
         .accessibilityLabel("Information view with markdown content.")
         .accessibilityHint("This view displays information about third-party licenses used in the app.")
     }

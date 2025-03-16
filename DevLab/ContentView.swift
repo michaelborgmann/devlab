@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
         
         TabView {
@@ -47,6 +48,7 @@ struct ContentView: View {
                 .accessibilityLabel("Settings Tab")
                 .accessibilityHint("Configure preferences and feature flags.")
         }
+        .tabViewStyle(.sidebarAdaptable)
         .accessibilityElement(children: .ignore)
     }
 }

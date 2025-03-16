@@ -39,11 +39,6 @@ struct ErrorAlertModifier: ViewModifier {
                     }
                 }
             )
-            .onChange(of: error?.localizedDescription) { oldValue, newValue in
-                if oldValue != newValue {
-                    UIAccessibility.post(notification: .announcement, argument: newValue)
-                }
-            }
     }
 }
 

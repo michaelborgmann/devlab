@@ -15,12 +15,23 @@ enum ButtonStyleType: String, CaseIterable {
     case borderless = "Borderless"
     case plain = "Plain"
     
+    #if os(macOS)
+    case accessoryBar = "Accessory Bar"
+    case accessoryBarAction = "Accessory Bar Action"
+    case link = "Link"
+    #endif
+    
+    #if os(tvOS)
+    case card = "Card"
+    #endif
+    
     @ViewBuilder
     func style(_ action: @escaping () -> Void) -> some View {
         switch self {
         case .automatic:
             Button("Tap Me") { action() }
                 .accessibilityLabel("Tap the Automatic Button")
+            
         case .bordered:
             Button("Tap Me") { action() }
                 .buttonStyle(.bordered)
@@ -37,6 +48,30 @@ enum ButtonStyleType: String, CaseIterable {
             Button("Tap Me") { action() }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Tap the Plain Button")
+        
+        #if os(macOS)
+        case .accessoryBar:
+            Button("Tap Me") { action() }
+                .buttonStyle(.accessoryBar)
+                .accessibilityLabel("Tap the Accessory Bar Button")
+            
+        case .accessoryBarAction:
+            Button("Tap Me") { action() }
+                .buttonStyle(.accessoryBarAction)
+                .accessibilityLabel("Tap the Accessory Bar Action Button")
+            
+        case .link:
+            Button("Tap Me") { action() }
+                .buttonStyle(.link)
+                .accessibilityLabel("Tap the Link Button")
+        #endif
+        
+        #if os(tvOS)
+        case .card:
+            Button("Tap Me") { action() }
+                .buttonStyle(.card)
+                .accessibilityLabel("Tap the Card Button")
+        #endif
         }
     }
     
@@ -62,7 +97,7 @@ enum ButtonStyleType: String, CaseIterable {
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 8)
                                 .background(selectedStyle.wrappedValue == style ? .blue : Color.gray.opacity(0.2))
-                                .foregroundColor(selectedStyle.wrappedValue == style ? .white : .black)
+                                .foregroundColor(selectedStyle.wrappedValue == style ? .white : .secondary)
                                 .cornerRadius(8)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 8)
@@ -77,5 +112,13 @@ enum ButtonStyleType: String, CaseIterable {
             }
             .accessibilityValue("Current style: \(selectedStyle.wrappedValue.rawValue)")
         }
+    }
+}
+
+#Preview {
+    @Previewable var selectedStyle: ButtonStyleType = .automatic
+    
+    VStack {
+        ButtonStyleType.selector(selectedStyle: .constant(ButtonStyleType.automatic))
     }
 }

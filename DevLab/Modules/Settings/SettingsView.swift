@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    @AppStorage("appTheme") var isDarkMode = false
     @State var viewModel = SettingsViewModel()
     
     var body: some View {
@@ -16,10 +17,20 @@ struct SettingsView: View {
             
             Text("⚙️ Feature Flags & Preferences")
                 .navigationTitle("Settings")
-                .accessibilityLabel("App settings and preferences.")
-                .accessibilityHint("Configure feature flags and user preferences.")
+                .accessibilityHidden(true)
             
             List {
+                
+                Section(header: Text("Preferences")
+                    .accessibilityLabel("Section header for user preferences.")
+                    .accessibilityHint("Contains settings related to theme and customization.")
+                ) {
+                    Toggle(isOn: $isDarkMode) {
+                        Text(isDarkMode ? "Dark Mode Enabled" : "Light Mode Enabled")
+                    }
+                    .accessibilityLabel(isDarkMode ? "Dark Mode is enabled" : "Light Mode is enabled")
+                    .accessibilityHint("Double tap to switch between Light and Dark mode.")
+                }
                 
                 Section(header: Text("Information")
                     .accessibilityLabel("Section header for Information settings.")
@@ -32,8 +43,8 @@ struct SettingsView: View {
                 }
             }
         }
-        .errorAlert(error: $viewModel.error)
         .accessibilityElement(children: .combine)
+        .errorAlert(error: $viewModel.error)
     }
 }
 

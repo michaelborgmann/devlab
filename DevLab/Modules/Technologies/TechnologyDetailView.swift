@@ -68,6 +68,7 @@ struct TechnologyDetailView: View {
                                     .accessibilityLabel("Demo: \(demo.title)")
                                     .accessibilityHint("Tap to view the demo titled \(demo.title).")
                             }
+                            .buttonStyle(.plain)
                         } else {
                             Button {
                                 viewModel.error = TechnologyViewModel.Error.demoNotFound(demoName: demo.title)
@@ -76,6 +77,7 @@ struct TechnologyDetailView: View {
                                     .accessibilityLabel("Demo: \(demo.title)")
                                     .accessibilityHint("This demo is currently unavailable.")
                             }
+                            .buttonStyle(.plain)
                         }
                     }
                     

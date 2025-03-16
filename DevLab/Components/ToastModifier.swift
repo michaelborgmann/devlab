@@ -23,14 +23,6 @@ struct ToastModifier: ViewModifier {
                 .accessibilityLabel(toastMessage)
                 .accessibilityValue("Toast message: \(toastMessage)")
                 .accessibilityAddTraits(.isStaticText)
-                .onAppear {
-                    UIAccessibility.post(notification: .announcement, argument: toastMessage)
-                }
-                .onChange(of: showToast) { _, newValue in
-                    if !newValue {
-                        UIAccessibility.post(notification: .announcement, argument: "Toast dismissed")
-                    }
-                }
         }
     }
 }

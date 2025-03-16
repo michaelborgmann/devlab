@@ -34,7 +34,7 @@ struct TechnologiesView: View {
             do {
                 try viewModel.loadTechnologies()
             } catch {
-                UIAccessibility.post(notification: .announcement, argument: "Failed to load technologies.")
+                // TODO
             }
         }
     }
@@ -42,7 +42,7 @@ struct TechnologiesView: View {
     // UI components
     
     private var ecosystemPicker: some View {
-        Picker("Select a Technology Ecosystem", selection: $viewModel.selectedEcosystem) {
+        Picker("Ecosystem:", selection: $viewModel.selectedEcosystem) {
             ForEach(Array(viewModel.ecosystemNames), id: \.self) { ecosystem in
                 Text(ecosystem).tag(ecosystem)
             }
@@ -102,6 +102,7 @@ struct TechnologiesView: View {
                             )
                         )
                     }
+                    .buttonStyle(.plain)
                 }
                 
                 Spacer().frame(width: 0)

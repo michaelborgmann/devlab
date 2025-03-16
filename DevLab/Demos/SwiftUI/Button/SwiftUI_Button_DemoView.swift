@@ -24,13 +24,19 @@ struct SwiftUI_Button_DemoView: View {
                 
                 SwiftUI_Button_Basic_DemoView(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle)
                     .accessibilityLabel("Basic Button Demo")
+                    .tabItem { Text("Basic Button") }
                 
                 SwiftUI_Button_Styling_DemoView(subtitle: $subtitle)
                     .accessibilityLabel("Button Styling Demo")
+                    .tabItem { Text("Button Styling") }
             }
+            #if os(macOS)
+            .buttonStyle(.plain)
+            .tabViewStyle(.sidebarAdaptable)
+            #elseif os(iOS)
             .tabViewStyle(PageTabViewStyle())
-            .indexViewStyle(
-                PageIndexViewStyle(backgroundDisplayMode: .always))
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+            #endif
             .accessibility(identifier: "Button Demos Tab View")
             .overlay {
                 Text(toastMessage)
@@ -41,6 +47,9 @@ struct SwiftUI_Button_DemoView: View {
             
         }
         .toolbar {
+            
+            // NOTE: iOS only, centers subtitle in navigation bar.
+            #if os(iOS)
             ToolbarItem(placement: .principal) {
                 subtitle.map {
                     Text($0)
@@ -49,7 +58,21 @@ struct SwiftUI_Button_DemoView: View {
                         .accessibilityLabel($0)
                 }
             }
+            #endif
             
+            // NOTE: Show demo information.
+            #if os(macOS)
+            ToolbarItem(placement: .automatic) {
+                NavigationLink(destination: {
+                    SwiftUI_Button_InfoView()
+                }, label: {
+                    Image(systemName: "info.circle")
+                })
+                .accessibilityLabel("Show Information")
+                .accessibilityHint("Opens the info sheet with details about the demo.")
+                .accessibilityValue(showInfo ? "Information sheet is open" : "Information sheet is closed")
+            }
+            #elseif os(iOS)
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: { showInfo.toggle() }) {
                     Image(systemName: "info.circle")
@@ -58,9 +81,11 @@ struct SwiftUI_Button_DemoView: View {
                 .accessibilityHint("Opens the info sheet with details about the demo.")
                 .accessibilityValue(showInfo ? "Information sheet is open" : "Information sheet is closed")
             }
+            #endif
         }
         .sheet(isPresented: $showInfo) {
             SwiftUI_Button_InfoView()
+                .presentationSizing(.page)
         }
         .animation(.easeInOut, value: showToast)
         .navigationTitle("Button")

@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct DevLabApp: App {
+    
+    @AppStorage("appTheme") private var isDarkModeOn = false
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(isDarkModeOn ? .dark : .light)
         }
     }
 }

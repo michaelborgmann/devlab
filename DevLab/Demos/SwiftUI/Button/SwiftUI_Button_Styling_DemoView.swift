@@ -28,10 +28,6 @@ struct SwiftUI_Button_Styling_DemoView: View {
             .accessibilityHint("Taps this button to trigger an action.")
             .accessibilityAddTraits(.isButton)
         }
-        .onAppear {
-            subtitle = "Button Styling"
-            UIAccessibility.post(notification: .announcement, argument: "Button Styling")
-        }
     }
 }
 

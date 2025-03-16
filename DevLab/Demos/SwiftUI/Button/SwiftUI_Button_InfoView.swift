@@ -24,8 +24,12 @@ struct SwiftUI_Button_InfoView: View {
                     .accessibilityValue("Loading content, please wait.")
             } else {
                 Markdown(markdown)
+                    .markdownBlockStyle(\.codeBlock) {
+                        CodeBlockView(configuration: $0)
+                    }
                     .padding()
                     .font(.body)
+                    .textSelection(.enabled)
                     .accessibilityLabel("Markdown content.")
                     .accessibilityValue("The markdown content has been loaded.")
             }
@@ -33,16 +37,6 @@ struct SwiftUI_Button_InfoView: View {
         .errorAlert(error: $error)
         .onAppear {
             loadMarkdownFile()
-        }
-        .onChange(of: isLoading) { _, isLoading in
-            if !isLoading {
-                UIAccessibility.post(notification: .announcement, argument: "Markdown content has been successfully loaded.")
-            }
-        }
-        .onChange(of: error?.localizedDescription) { oldValue, newValue in
-            if let newDescription = newValue, newDescription != oldValue {
-                UIAccessibility.post(notification: .announcement, argument: "Error: \(newDescription)")
-            }
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Information view with markdown content.")
