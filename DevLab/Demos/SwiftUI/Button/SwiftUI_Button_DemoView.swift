@@ -13,6 +13,7 @@ struct SwiftUI_Button_DemoView: View {
     @State private var toastMessage = ""
     @State private var showInfo = false
     @State private var subtitle: String?
+    @State private var customizeAction: (() -> Void)? = nil
     
     var body: some View {
         VStack {
@@ -26,7 +27,7 @@ struct SwiftUI_Button_DemoView: View {
                     .accessibilityLabel("Basic Button Demo")
                     .tabItem { Text("Basic Button") }
                 
-                SwiftUI_Button_Styling_DemoView(subtitle: $subtitle)
+                SwiftUI_Button_Styling_DemoView(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle, customizeAction: $customizeAction)
                     .accessibilityLabel("Button Styling Demo")
                     .tabItem { Text("Button Styling") }
             }
@@ -73,8 +74,15 @@ struct SwiftUI_Button_DemoView: View {
                 .accessibilityValue(showInfo ? "Information sheet is open" : "Information sheet is closed")
             }
             #elseif os(iOS)
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: { showInfo.toggle() }) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                
+                if let customizeAction = customizeAction {
+                    Button { customizeAction() } label: {
+                        Image(systemName: "slider.horizontal.3")
+                    }
+                }
+                
+                Button { showInfo.toggle() } label: {
                     Image(systemName: "info.circle")
                 }
                 .accessibilityLabel("Show Information")
@@ -94,5 +102,7 @@ struct SwiftUI_Button_DemoView: View {
 }
 
 #Preview {
-    SwiftUI_Button_DemoView()
+    NavigationStack {
+        SwiftUI_Button_DemoView()
+    }
 }

@@ -47,10 +47,10 @@ struct TechnologiesView: View {
                 Text(ecosystem).tag(ecosystem)
             }
         }
-        .accessibilityLabel(LocalizedStringKey("Ecosystem Picker"))
-        .accessibilityHint(LocalizedStringKey("Select a technology ecosystem to view the available technologies"))
         .pickerStyle(SegmentedPickerStyle())
         .padding()
+        .accessibilityLabel(LocalizedStringKey("Ecosystem Picker"))
+        .accessibilityHint(LocalizedStringKey("Select a technology ecosystem to view the available technologies"))
     }
     
     private func technologyRows() -> some View {
