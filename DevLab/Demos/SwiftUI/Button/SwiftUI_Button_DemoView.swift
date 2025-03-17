@@ -30,6 +30,9 @@ struct SwiftUI_Button_DemoView: View {
                 SwiftUI_Button_Styling_DemoView(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle, customizeAction: $customizeAction)
                     .accessibilityLabel("Button Styling Demo")
                     .tabItem { Text("Button Styling") }
+                
+                SwiftUI_Button_Animation_DemoView(subtitle: $subtitle)
+                    .tabItem { Text("Button Animation") }
             }
             #if os(macOS)
             .buttonStyle(.plain)
