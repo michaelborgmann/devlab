@@ -24,7 +24,7 @@ class SwiftUI_Button_DemoViewModel {
     
     var selectedBackground: Background = .color
     var selectedPhoto: PhotosPickerItem? = nil
-    var selectedImage: UIImage? = nil
+    var selectedImage: Image? = nil
     
     enum Background: String, CaseIterable {
         case color = "Color"
@@ -113,6 +113,28 @@ struct SwiftUI_Button_Styling_DemoView: View {
     var body: some View {
         VStack(spacing: 30) {
             
+            #if os(macOS)
+            HSplitView{
+                
+                VStack {
+                    Text("Customize the button by styling it.")
+                        .font(.headline)
+                        .accessibilityLabel("Customize Button Styling")
+
+                    Spacer()
+                    
+                    styledButton
+                    
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                if viewModel.showCustomizations {                    
+                    customizeButton
+                        .frame(width: 400)
+                }
+            }
+            #elseif os(iOS)
             if viewModel.showCustomizations {
                 
                 styledButton
@@ -122,34 +144,52 @@ struct SwiftUI_Button_Styling_DemoView: View {
             } else {
                 
                 Text("Customize the button by styling it.")
+                    .accessibilityLabel("Customize Button Styling")
                     .font(.headline)
+                
                 Spacer()
                 styledButton
                     .matchedGeometryEffect(id: "button", in: animationNamespace)
                 Spacer()
             }
+            #endif
         }
         .onAppear {
             subtitle = "Button Styling"
+            
+            #if os(macOS)
+            viewModel.showCustomizations = true
+            #endif
+            
             setupCustomizeAction()
         }
         .onDisappear {
             customizeAction = nil
         }
         .onChange(of: viewModel.selectedPhoto) { _, newItem in
-            Task {
-                if let data = try? await newItem?.loadTransferable(type: Data.self),
-                   let uiImage = UIImage(data: data) {
-                    viewModel.selectedImage = uiImage
+            
+            newItem?.loadTransferable(type: Image.self) { result in
+                Task {
+                    switch result {
+                    case .success(let image):
+                        if let image = image {
+                            await viewModel.selectedImage = image
+                        }
+                    case .failure:
+                        break
+                    }
                 }
             }
         }
+        #if os(iOS)
         .animation(.easeInOut(duration: 0.3), value: viewModel.showCustomizations)
         .sheet(isPresented: $viewModel.showCustomizations) {
             customizeButton
                 .presentationDetents([.medium])
+                .accessibilityAddTraits(.isModal)
         }
         .navigationBarTitleDisplayMode(viewModel.showCustomizations ? .inline : .automatic)
+        #endif
     }
     
     private func showToastMessage() {
@@ -182,14 +222,21 @@ struct SwiftUI_Button_Styling_DemoView: View {
                     
                     TextField("Title", text: $viewModel.title)
                         .textFieldStyle(.roundedBorder)
+                        .accessibilityLabel("Button Title")
+                        .accessibilityHint("Enter a title for the button")
                     
                     ColorPicker("Font Color", selection: $viewModel.fontColor)
+                        .accessibilityLabel("Font Color")
                     
                     Picker("Font Style:", selection: $viewModel.selectedFont) {
                         ForEach(SwiftUI_Button_DemoViewModel.TextSize.allCases, id: \.self) { font in
                             Text(font.rawValue).tag(font.rawValue)
                         }
-                    }.pickerStyle(.menu)
+                    }
+                    .pickerStyle(.menu)
+                    .accessibilityLabel("Font Style Picker")
+                    .accessibilityHint("Choose a font style for the button")
+                    .accessibilityValue(viewModel.selectedFont.rawValue)
                 }
                 
                 Section(header: Text("Button Shape")) {
@@ -197,16 +244,22 @@ struct SwiftUI_Button_Styling_DemoView: View {
                     VStack(spacing: 0) {
                         Text("Padding: \(Int(viewModel.padding))")
                         Slider(value: $viewModel.padding, in: 8...32)
+                            .accessibilityLabel("Button Padding")
+                            .accessibilityValue("\(Int(viewModel.padding)) pixels")
                     }
                     
                     VStack(spacing: 0) {
                         Text("Corner Radius: \(Int(viewModel.cornerRadius))")
                         Slider(value: $viewModel.cornerRadius, in: 0...30)
+                            .accessibilityLabel("Corner Radius")
+                            .accessibilityValue("\(Int(viewModel.cornerRadius)) pixels")
                     }
                     
                     VStack(spacing: 0) {
                         Text("Shadow: \(Int(viewModel.shadow))")
                         Slider(value: $viewModel.shadow, in: 0...20)
+                            .accessibilityLabel("Shadow Intensity")
+                            .accessibilityValue("\(Int(viewModel.shadow)) pixels")
                     }
                 }
                 
@@ -219,21 +272,31 @@ struct SwiftUI_Button_Styling_DemoView: View {
                             }
                         }
                         .pickerStyle(SegmentedPickerStyle())
+                        .accessibilityLabel("Button Background Style")
+                        .accessibilityHint("Select a background type for the button")
+                        .accessibilityValue(viewModel.selectedBackground.rawValue)
                         
                         switch viewModel.selectedBackground {
                         case .color:
                             ColorPicker("Background Color", selection: $viewModel.backgroundColor)
+                                .accessibilityLabel("Background Color")
                         case .gradient:
                             ColorPicker("Start Color", selection: $viewModel.gradientStart)
+                                .accessibilityLabel("Gradient Start Color")
                             ColorPicker("End Color", selection: $viewModel.gradientEnd)
+                                .accessibilityLabel("Gradient End Color")
                         case .image:
                             PhotosPicker("Select Background Image", selection: $viewModel.selectedPhoto)
+                                .accessibilityLabel("Select Background Image")
+                                .accessibilityHint("Pick an image from your library to use as a button background")
                         }
                     }
                 }
             }
             .navigationTitle("Customize Button Style")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
         }
         
     }
@@ -262,7 +325,7 @@ struct SwiftUI_CustomButtonStyle: ButtonStyle {
                 )
                 case .image:
                     if let image = viewModel.selectedImage {
-                        Image(uiImage: image)
+                        image
                             .resizable()
                             .scaledToFit()
                             .frame(height: 300)

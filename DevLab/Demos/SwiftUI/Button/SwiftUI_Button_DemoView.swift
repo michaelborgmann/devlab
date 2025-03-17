@@ -24,15 +24,16 @@ struct SwiftUI_Button_DemoView: View {
             TabView {
                 
                 SwiftUI_Button_Basic_DemoView(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle)
-                    .accessibilityLabel("Basic Button Demo")
                     .tabItem { Text("Basic Button") }
+                    .accessibilityLabel("Basic Button Demo")
                 
                 SwiftUI_Button_Styling_DemoView(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle, customizeAction: $customizeAction)
-                    .accessibilityLabel("Button Styling Demo")
                     .tabItem { Text("Button Styling") }
+                    .accessibilityLabel("Button Styling Demo")
                 
                 SwiftUI_Button_Animation_DemoView(subtitle: $subtitle)
                     .tabItem { Text("Button Animation") }
+                    .accessibilityLabel("Button Animation Demo")
             }
             #if os(macOS)
             .buttonStyle(.plain)
@@ -66,7 +67,16 @@ struct SwiftUI_Button_DemoView: View {
             
             // NOTE: Show demo information.
             #if os(macOS)
-            ToolbarItem(placement: .automatic) {
+            ToolbarItemGroup(placement: .automatic) {
+                
+                if let customizeAction = customizeAction {
+                    Button { customizeAction() } label: {
+                        Image(systemName: "slider.horizontal.3")
+                    }
+                    .accessibilityLabel("Customize Settings")
+                    .accessibilityHint("Opens customization options")
+                }
+                
                 NavigationLink(destination: {
                     SwiftUI_Button_InfoView()
                 }, label: {
@@ -83,6 +93,8 @@ struct SwiftUI_Button_DemoView: View {
                     Button { customizeAction() } label: {
                         Image(systemName: "slider.horizontal.3")
                     }
+                    .accessibilityLabel("Customize Settings")
+                    .accessibilityHint("Opens customization options")
                 }
                 
                 Button { showInfo.toggle() } label: {
