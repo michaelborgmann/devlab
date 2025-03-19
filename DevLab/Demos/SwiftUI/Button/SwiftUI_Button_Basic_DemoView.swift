@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SwiftUI_Button_Basic_DemoView: View {
     
-    @State private var selectedStyle: ButtonStyleType = .automatic
+    @State private var selectedStyle: SwiftUI_ButtonStyleType = .automatic
     
     @Binding var showToast: Bool
     @Binding var toastMessage: String
@@ -23,7 +23,7 @@ struct SwiftUI_Button_Basic_DemoView: View {
                 .accessibilityLabel("A basic button that triggers an action.")
                 .accessibilityHint("Choose a button style from the list below.")
             
-            ButtonStyleType.selector(selectedStyle: $selectedStyle)
+            SwiftUI_ButtonStyleType.selector(selectedStyle: $selectedStyle)
             
             Spacer()
             

@@ -92,7 +92,7 @@ class SwiftUI_Button_DemoViewModel {
 
 struct SwiftUI_Button_Styling_DemoView: View {
     
-    @State private var selectedStyle: ButtonStyleType = .automatic
+    @State private var selectedStyle: SwiftUI_ButtonStyleType = .automatic
     @State private var viewModel = SwiftUI_Button_DemoViewModel()
     
     @Binding var showToast: Bool

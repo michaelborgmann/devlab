@@ -27,7 +27,7 @@
                     {
                         "name": "Views & Controls",
                         "demos": [
-                            { "title": "Button", "view": "SwiftUI_Button_DemoView" },
+                            { "title": "UIButton", "view": "UIKit_UIButton_DemoView" },
                         ]
                     }
                 ]

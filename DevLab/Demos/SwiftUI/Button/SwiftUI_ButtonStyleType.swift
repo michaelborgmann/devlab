@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ButtonStyleType: String, CaseIterable {
+enum SwiftUI_ButtonStyleType: String, CaseIterable {
     
     case automatic = "Automatic"
     case bordered = "Bordered"
@@ -76,7 +76,7 @@ enum ButtonStyleType: String, CaseIterable {
     }
     
     @ViewBuilder
-    static func selector(selectedStyle: Binding<ButtonStyleType>) -> some View {
+    static func selector(selectedStyle: Binding<SwiftUI_ButtonStyleType>) -> some View {
         
         VStack {
             Text("Select a Button Style")
@@ -88,7 +88,7 @@ enum ButtonStyleType: String, CaseIterable {
                 HStack(spacing: 20) {
                     Spacer().frame(width: 0)
                     
-                    ForEach(ButtonStyleType.allCases, id: \.self) { style in
+                    ForEach(SwiftUI_ButtonStyleType.allCases, id: \.self) { style in
                         
                         Button(action: {
                             withAnimation { selectedStyle.wrappedValue = style }
@@ -116,9 +116,9 @@ enum ButtonStyleType: String, CaseIterable {
 }
 
 #Preview {
-    @Previewable var selectedStyle: ButtonStyleType = .automatic
+    @Previewable var selectedStyle: SwiftUI_ButtonStyleType = .automatic
     
     VStack {
-        ButtonStyleType.selector(selectedStyle: .constant(ButtonStyleType.automatic))
+        SwiftUI_ButtonStyleType.selector(selectedStyle: .constant(SwiftUI_ButtonStyleType.automatic))
     }
 }

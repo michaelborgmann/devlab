@@ -107,6 +107,8 @@ struct TechnologyDetailView: View {
         switch demoName {
         case "SwiftUI_Button_DemoView":
             AnyView(SwiftUI_Button_DemoView())
+        case "UIKit_UIButton_DemoView":
+            AnyView(UIKit_UIButton_DemoView())
         default:
             nil
         }
