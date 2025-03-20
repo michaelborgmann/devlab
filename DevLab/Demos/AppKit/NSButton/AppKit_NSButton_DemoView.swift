@@ -1,15 +1,15 @@
 //
-//  UIKit_UIButton_DemoView.swift
+//  AppKit_NS_Button_DemoView.swift
 //  DevLab
 //
-//  Created by Michael Borgmann on 19/03/2025.
+//  Created by Michael Borgmann on 20/03/2025.
 //
 
-#if os(iOS)
+#if os(macOS)
 
 import SwiftUI
 
-struct UIKit_UIButton_DemoView: View {
+struct AppKit_NSButton_DemoView: View {
     
     @State private var showToast = false
     @State private var toastMessage = ""
@@ -25,35 +25,24 @@ struct UIKit_UIButton_DemoView: View {
             
             TabView {
                 
-                UIKit_Button_BasicViewControllerRepresentable(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle)
-                    .tabItem { Text("Basic UIButton") }
-                    .accessibilityLabel("UIKit UIButton Demo")
+                AppKit_NSButton_BasicViewControllerRepresentable(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle)
+                    .tabItem { Text("Basic NSButton") }
+                    .accessibilityLabel("AppKit NSButton Demo")
             }
-            .tabViewStyle(PageTabViewStyle())
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            .accessibility(identifier: "UIButton Demos Tab View")
+            .buttonStyle(.plain)
+            .tabViewStyle(.sidebarAdaptable)
+            .accessibility(identifier: "NSButton Demos Tab View")
             .overlay {
                 Text(toastMessage)
                     .toast(showToast: $showToast, toastMessage: $toastMessage)
                     .accessibilityLabel(toastMessage)
                     .accessibilityAddTraits(.updatesFrequently)
             }
-            
         }
         .toolbar {
             
-            // NOTE: iOS only, centers subtitle in navigation bar.
-            ToolbarItem(placement: .principal) {
-                subtitle.map {
-                    Text($0)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .accessibilityLabel($0)
-                }
-            }
-            
             // NOTE: Show demo information.
-            ToolbarItemGroup(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .automatic) {
                 
                 if let customizeAction = customizeAction {
                     Button { customizeAction() } label: {
@@ -63,27 +52,25 @@ struct UIKit_UIButton_DemoView: View {
                     .accessibilityHint("Opens customization options")
                 }
                 
-                Button { showInfo.toggle() } label: {
+                NavigationLink(destination: {
+                    AppKit_NSButton_InfoView()
+                }, label: {
                     Image(systemName: "info.circle")
-                }
+                })
                 .accessibilityLabel("Show Information")
                 .accessibilityHint("Opens the info sheet with details about the demo.")
                 .accessibilityValue(showInfo ? "Information sheet is open" : "Information sheet is closed")
             }
         }
-        .sheet(isPresented: $showInfo) {
-            UIKit_UIButton_InfoView()
-                .presentationSizing(.page)
-        }
         .animation(.easeInOut, value: showToast)
-        .navigationTitle("UIButton")
-        .accessibilityLabel("UIButton Demo")
+        .navigationTitle("NSButton")
+        .accessibilityLabel("NSButton Demo")
     }
 }
 
 #Preview {
     NavigationStack {
-        UIKit_UIButton_DemoView()
+        AppKit_NSButton_DemoView()
     }
 }
 

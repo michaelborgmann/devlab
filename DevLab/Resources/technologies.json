@@ -31,6 +31,17 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "AppKit",
+                "sections": [
+                    {
+                        "name": "Views & Controls",
+                        "demos": [
+                            { "title": "NSButton", "view": "AppKit_NSButton_DemoView" },
+                        ]
+                    }
+                ]
             }
         ]
     },

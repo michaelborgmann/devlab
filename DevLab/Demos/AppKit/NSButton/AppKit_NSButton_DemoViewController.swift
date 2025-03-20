@@ -1,16 +1,16 @@
 //
-//  UIKit_Button_BasicViewController.swift
+//  AppKit_NSButton_DemoViewController.swift
 //  DevLab
 //
-//  Created by Michael Borgmann on 19/03/2025.
+//  Created by Michael Borgmann on 20/03/2025.
 //
 
-#if os(iOS)
+#if os(macOS)
 
-import UIKit
+import AppKit
 import Combine
 
-class UIKit_Button_BasicViewController: UIViewController {
+class AppKit_NSButton_BasicViewController: NSViewController {
     
     @Published var toastMessage: String = ""
     @Published var subtitle: String? {
@@ -19,65 +19,58 @@ class UIKit_Button_BasicViewController: UIViewController {
         }
     }
     
-    private var label: UILabel!
-    private var button: UIButton!
+    private var label: NSTextField!
+    private var button: NSButton!
+    
+    override func loadView() {
+        view = NSView()
+        view.wantsLayer = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        subtitle = "Basic UIButton"
+        subtitle = "Basic NSButton"
         
         setupLabel()
         setupButton()
     }
     
     private func setupLabel() {
+        label = NSTextField(labelWithString: "A basic button that triggers an action.")
+        label.font = NSFont.preferredFont(forTextStyle: .headline)
+        label.alignment = .center
         
-        // Setup UILabel
-        label = UILabel()
-        label.text = "A basic button that triggers an action."
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
         view.addSubview(label)
         
-        // Set up layout constraints
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-        // Setup accessibility
-        label.accessibilityLabel = "A basic button that triggers an action."
-        label.accessibilityHint = "Choose a button style from the list below."
+        // Accessibility
+        label.setAccessibilityLabel("A basic button that triggers an action.")
+//        label.setAccessibilityHint("Choose a button style from the list below.")
     }
-        
+    
     private func setupButton() {
-        
-        // Setup UIButton
-        button = UIButton(type: .system)
-        button.setTitle("Tap Me", for: .normal)
+        button = NSButton(title: "Tap Me", target: self, action: #selector(buttonTapped))
+        button.bezelStyle = .rounded
         view.addSubview(button)
         
-        // Setup Action
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
-        // Set up layout constraints
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
-        // Setup accessibility
-        button.accessibilityLabel = "A basic button that triggers an action."
-        button.accessibilityHint = "Triggers an action when pressed."
-        button.accessibilityTraits = .button
+        // Accessibility
+        button.setAccessibilityLabel("A basic button that triggers an action.")
+//        button.setAccessibilityHint("Triggers an action when pressed.")
     }
     
     @objc private func buttonTapped() {
-//        toastPublisher.send("Button Pressed")
         toastMessage = "Button Pressed"
     }
 }
@@ -86,7 +79,7 @@ class UIKit_Button_BasicViewController: UIViewController {
 
 import SwiftUI
 
-struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresentable {
+struct AppKit_NSButton_BasicViewControllerRepresentable: NSViewControllerRepresentable {
     
     @Binding var showToast: Bool
     @Binding var toastMessage: String
@@ -94,14 +87,14 @@ struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresenta
     
     class Coordinator: NSObject {
         
-        var parent: UIKit_Button_BasicViewControllerRepresentable
+        var parent: AppKit_NSButton_BasicViewControllerRepresentable
         var cancellables = Set<AnyCancellable>()
         
-        init(parent: UIKit_Button_BasicViewControllerRepresentable) {
+        init(parent: AppKit_NSButton_BasicViewControllerRepresentable) {
             self.parent = parent
         }
         
-        func subscribe(to viewController: UIKit_Button_BasicViewController) {
+        func subscribe(to viewController: AppKit_NSButton_BasicViewController) {
             
             viewController.$toastMessage
                 .receive(on: RunLoop.main)
@@ -131,13 +124,13 @@ struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresenta
         return Coordinator(parent: self)
     }
     
-    func makeUIViewController(context: Context) -> UIKit_Button_BasicViewController {
-        let viewController = UIKit_Button_BasicViewController()
+    func makeNSViewController(context: Context) -> AppKit_NSButton_BasicViewController {
+        let viewController = AppKit_NSButton_BasicViewController()
         context.coordinator.subscribe(to: viewController)
         return viewController
     }
     
-    func updateUIViewController(_ uiViewController: UIKit_Button_BasicViewController, context: Context) {
+    func updateNSViewController(_ nsViewController: AppKit_NSButton_BasicViewController, context: Context) {
         // Handle any updates to the view controller if needed
     }
 }
@@ -148,7 +141,7 @@ struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresenta
     @Previewable @State var subtitle: String? = nil
     
     NavigationStack {
-        UIKit_Button_BasicViewControllerRepresentable(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle)
+        AppKit_NSButton_BasicViewControllerRepresentable(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle)
     }
 }
 

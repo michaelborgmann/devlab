@@ -105,10 +105,19 @@ struct TechnologyDetailView: View {
     
     func demoFactory(for demoName: String) -> AnyView? {
         switch demoName {
+            
         case "SwiftUI_Button_DemoView":
             AnyView(SwiftUI_Button_DemoView())
+            
+        #if os(iOS)
         case "UIKit_UIButton_DemoView":
             AnyView(UIKit_UIButton_DemoView())
+        #endif
+            
+        #if os(macOS)
+        case "AppKit_NSButton_DemoView":
+            AnyView(AppKit_NSButton_DemoView())
+        #endif
         default:
             nil
         }
