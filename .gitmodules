@@ -1,0 +1,9 @@
+[submodule "Web/Angular"]
+	path = Web/Angular
+	url = https://github.com/hacknthrash/angular-demos.git
+[submodule "Web/React"]
+	path = Web/React
+	url = https://github.com/hacknthrash/react-demos.git
+[submodule "Web/VueJS"]
+	path = Web/VueJS
+	url = https://github.com/hacknthrash/vuejs-demos.git
