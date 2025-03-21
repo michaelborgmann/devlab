@@ -118,6 +118,16 @@ struct TechnologyDetailView: View {
         case "AppKit_NSButton_DemoView":
             AnyView(AppKit_NSButton_DemoView())
         #endif
+            
+        case "Angular_Basic_DemoView":
+            AnyView(Angular_Basic_DemoView())
+            
+        case "React_Basic_DemoView":
+            AnyView(React_Basic_DemoView())
+            
+        case "VueJS_Basic_DemoView":
+            AnyView(VueJS_Basic_DemoView())
+            
         default:
             nil
         }
@@ -130,7 +140,7 @@ struct TechnologyDetailView: View {
     try? viewModel.loadTechnologies()
     
     return NavigationView {
-        if let ecosystem = viewModel.ecosystems.first,
+        if let ecosystem = viewModel.ecosystems.last,
            let technology = ecosystem.technologies.first
         {
             TechnologyDetailView(viewModel: .constant(viewModel), technology: technology)

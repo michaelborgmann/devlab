@@ -53,6 +53,40 @@
     {
         "ecosystem": "Web",
         "systemImage": "app.badge.checkmark",
-        "technologies": []
+        "technologies": [
+            {
+                "name": "Angular",
+                "sections": [
+                    {
+                        "name": "Views",
+                        "demos": [
+                            { "title": "Angular Basic", "view": "Angular_Basic_DemoView" },
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "React",
+                "sections": [
+                    {
+                        "name": "Views",
+                        "demos": [
+                            { "title": "React Basic", "view": "React_Basic_DemoView" },
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Vue.js",
+                "sections": [
+                    {
+                        "name": "Views",
+                        "demos": [
+                            { "title": "Vue.js Basic", "view": "VueJS_Basic_DemoView" },
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
