@@ -105,26 +105,36 @@ struct TechnologyDetailView: View {
     
     func demoFactory(for demoName: String) -> AnyView? {
         switch demoName {
-            
+        
+        // SwiftUI
         case "SwiftUI_Button_DemoView":
             AnyView(SwiftUI_Button_DemoView())
             
+        // UIKit
         #if os(iOS)
         case "UIKit_UIButton_DemoView":
             AnyView(UIKit_UIButton_DemoView())
         #endif
-            
+        
+        // AppKit
         #if os(macOS)
         case "AppKit_NSButton_DemoView":
             AnyView(AppKit_NSButton_DemoView())
         #endif
-            
+        
+        // SpriteKit
+        case "SpriteKit_SKScene_DemoView":
+            AnyView(SpriteKit_SKScene_DemoView())
+        
+        // Angular
         case "Angular_Basic_DemoView":
             AnyView(Angular_Basic_DemoView())
             
+        // React
         case "React_Basic_DemoView":
             AnyView(React_Basic_DemoView())
-            
+        
+        // Vue.js
         case "VueJS_Basic_DemoView":
             AnyView(VueJS_Basic_DemoView())
             

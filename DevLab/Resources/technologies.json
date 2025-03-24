@@ -42,6 +42,17 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "SpriteKit",
+                "sections": [
+                    {
+                        "name": "Essentials",
+                        "demos": [
+                            { "title": "SKScene", "view": "SpriteKit_SKScene_DemoView" },
+                        ]
+                    }
+                ]
             }
         ]
     },
