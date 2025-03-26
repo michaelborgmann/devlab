@@ -10,7 +10,7 @@
                         "name": "Views",
                         "demos": [
                             { "title": "Button", "view": "SwiftUI_Button_DemoView" },
-                            { "title": "Label", "view": "SwiftUI_Label_DemoView" },
+                            { "title": "Toggle", "view": "SwiftUI_Toggle_DemoView" },
                         ]
                     },
                     {

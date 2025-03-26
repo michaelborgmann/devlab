@@ -109,6 +109,8 @@ struct TechnologyDetailView: View {
         // SwiftUI
         case "SwiftUI_Button_DemoView":
             AnyView(SwiftUI_Button_DemoView())
+        case "SwiftUI_Toggle_DemoView":
+            AnyView(SwiftUI_Toggle_DemoView())
             
         // UIKit
         #if os(iOS)

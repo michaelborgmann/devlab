@@ -84,12 +84,10 @@ enum SwiftUI_ButtonStyleType: String, CaseIterable {
                 .accessibilityLabel("Select a button style")
             
             ScrollView(.horizontal, showsIndicators: false) {
-                
                 HStack(spacing: 20) {
                     Spacer().frame(width: 0)
                     
                     ForEach(SwiftUI_ButtonStyleType.allCases, id: \.self) { style in
-                        
                         Button(action: {
                             withAnimation { selectedStyle.wrappedValue = style }
                         }) {
@@ -116,9 +114,5 @@ enum SwiftUI_ButtonStyleType: String, CaseIterable {
 }
 
 #Preview {
-    @Previewable var selectedStyle: SwiftUI_ButtonStyleType = .automatic
-    
-    VStack {
-        SwiftUI_ButtonStyleType.selector(selectedStyle: .constant(SwiftUI_ButtonStyleType.automatic))
-    }
+    SwiftUI_ButtonStyleType.selector(selectedStyle: .constant(.automatic))
 }
