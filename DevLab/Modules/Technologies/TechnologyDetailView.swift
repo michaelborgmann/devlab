@@ -113,6 +113,8 @@ struct TechnologyDetailView: View {
             AnyView(SwiftUI_Toggle_DemoView())
         case "SwiftUI_Stepper_DemoView":
             AnyView(SwiftUI_Stepper_DemoView())
+        case "SwiftUI_Slider_DemoView":
+            AnyView(SwiftUI_Slider_DemoView())
             
         // UIKit
         #if os(iOS)
