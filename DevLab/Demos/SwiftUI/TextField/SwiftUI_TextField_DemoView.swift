@@ -1,5 +1,5 @@
 //
-//  SwiftUI_Picker_DemoView.swift
+//  SwiftUI_TextField_DemoView.swift
 //  DevLab
 //
 //  Created by Michael Borgmann on 27/03/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SwiftUI_Picker_DemoView: View {
+struct SwiftUI_TextField_DemoView: View {
     
     @State private var showInfo = false
     @State private var subtitle: String?
@@ -21,9 +21,9 @@ struct SwiftUI_Picker_DemoView: View {
             
             TabView {
                 
-                SwiftUI_Picker_Basic_DemoView(subtitle: $subtitle)
-                    .tabItem { Text("Basic Picker") }
-                    .accessibilityLabel("Basic Picker Demo")
+                SwiftUI_TextField_Basic_DemoView(subtitle: $subtitle)
+                    .tabItem { Text("Basic TextField") }
+                    .accessibilityLabel("Basic TextField Demo")
             }
             #if os(macOS)
             .buttonStyle(.plain)
@@ -32,7 +32,7 @@ struct SwiftUI_Picker_DemoView: View {
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             #endif
-            .accessibility(identifier: "Picker Demos Tab View")
+            .accessibility(identifier: "TextField Demos Tab View")
             
         }
         .toolbar {
@@ -62,7 +62,7 @@ struct SwiftUI_Picker_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    SwiftUI_Picker_InfoView()
+                    SwiftUI_TextField_InfoView()
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -91,16 +91,16 @@ struct SwiftUI_Picker_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Picker_InfoView()
+            SwiftUI_TextField_InfoView()
                 .presentationSizing(.page)
         }
-        .navigationTitle("Picker")
-        .accessibilityLabel("Picker Demo")
+        .navigationTitle("TextField")
+        .accessibilityLabel("TextField Demo")
     }
 }
 
 #Preview {
     NavigationStack {
-        SwiftUI_Picker_DemoView()
+        SwiftUI_TextField_DemoView()
     }
 }
