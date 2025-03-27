@@ -1,5 +1,5 @@
 //
-//  SwiftUI_Slider_DemoView.swift
+//  SwiftUI_Picker_DemoView.swift
 //  DevLab
 //
 //  Created by Michael Borgmann on 27/03/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SwiftUI_Slider_DemoView: View {
+struct SwiftUI_Picker_DemoView: View {
     
     @State private var showInfo = false
     @State private var subtitle: String?
@@ -21,9 +21,9 @@ struct SwiftUI_Slider_DemoView: View {
             
             TabView {
                 
-                SwiftUI_Slider_Basic_DemoView(subtitle: $subtitle)
-                    .tabItem { Text("Basic Slider") }
-                    .accessibilityLabel("Basic Slider Demo")
+                SwiftUI_Picker_Basic_DemoView(subtitle: $subtitle)
+                    .tabItem { Text("Basic Picker") }
+                    .accessibilityLabel("Basic Picker Demo")
             }
             #if os(macOS)
             .buttonStyle(.plain)
@@ -32,7 +32,7 @@ struct SwiftUI_Slider_DemoView: View {
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             #endif
-            .accessibility(identifier: "Slider Demos Tab View")
+            .accessibility(identifier: "Picker Demos Tab View")
             
         }
         .toolbar {
@@ -62,7 +62,7 @@ struct SwiftUI_Slider_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    SwiftUI_Slider_InfoView()
+                    SwiftUI_Picker_InfoView()
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -91,16 +91,14 @@ struct SwiftUI_Slider_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Slider_InfoView()
+            SwiftUI_Picker_InfoView()
                 .presentationSizing(.page)
         }
-        .navigationTitle("Slider")
-        .accessibilityLabel("Slider Demo")
+        .navigationTitle("Picker")
+        .accessibilityLabel("Picker Demo")
     }
 }
 
 #Preview {
-    NavigationStack {
-        SwiftUI_Slider_DemoView()
-    }
+    SwiftUI_Picker_DemoView()
 }
