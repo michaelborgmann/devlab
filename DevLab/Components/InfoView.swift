@@ -1,18 +1,26 @@
 //
-//  SwiftUI_Toggle_InfoView.swift
+//  InfoView.swift
 //  DevLab
 //
-//  Created by Michael Borgmann on 26/03/2025.
+//  Created by Michael Borgmann on 28/03/2025.
 //
 
 import SwiftUI
 import MarkdownUI
 
-struct SwiftUI_Toggle_InfoView: View {
-
+struct InfoView: View {
+    
     @State private var markdown: String = ""
     @State private var isLoading = false
     @State var error: Error? = nil
+    
+    private let fileName: String
+    private let fileType: String?
+    
+    init(fileName: String, fileType: String? = nil) {
+        self.fileName = fileName
+        self.fileType = fileType
+    }
     
     var body: some View {
         ScrollView {
@@ -36,21 +44,22 @@ struct SwiftUI_Toggle_InfoView: View {
         }
         .errorAlert(error: $error)
         .onAppear {
-            loadMarkdownFile()
+            loadMarkdownFile(filename: fileName, fileType: fileType)
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Information view with markdown content.")
-        .accessibilityHint("This view displays content related to toggle demos.")
+        .accessibilityHint("This view displays content related to slider demos.")
     }
     
-    private func loadMarkdownFile(filename: String = "SwiftUI_Toggle_Demo", fileType type: String = "md") {
+    private func loadMarkdownFile(filename: String, fileType type: String?) {
         
         isLoading = true
         
         defer { isLoading = false }
         
         guard let filePath = Bundle.main.path(forResource: filename, ofType: type) else {
-            error = SettingsViewModel.Error.fileNotFound(filename: "\(filename).\(type)")
+            let fileExtension = type.map { ".\($0)" } ?? ""
+            error = SettingsViewModel.Error.fileNotFound(filename: "\(filename)\(fileExtension)")
             return
         }
         
@@ -63,5 +72,5 @@ struct SwiftUI_Toggle_InfoView: View {
 }
 
 #Preview {
-    SwiftUI_Toggle_InfoView()
+    InfoView(fileName: "SwiftUI_Button_Demo", fileType: "md")
 }

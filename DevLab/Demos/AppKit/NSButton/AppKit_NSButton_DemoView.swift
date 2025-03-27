@@ -53,7 +53,7 @@ struct AppKit_NSButton_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    AppKit_NSButton_InfoView()
+                    InfoView(fileName: "AppKit_NSButton_Demo", fileType: "md")
                 }, label: {
                     Image(systemName: "info.circle")
                 })

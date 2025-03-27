@@ -57,7 +57,7 @@ struct VueJS_Basic_DemoView: View {
                 #endif
             }
             .sheet(isPresented: $showInfo) {
-                VueJS_Basic_InfoView()
+                InfoView(fileName: "VueJS_Basic_Demo", fileType: "md")
                     .presentationSizing(.page)
                     .accessibilityLabel("Vue.js Basic Info Sheet")
                     .accessibilityHint("Displays additional information about the demo.")

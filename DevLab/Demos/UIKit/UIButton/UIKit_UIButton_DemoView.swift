@@ -72,7 +72,7 @@ struct UIKit_UIButton_DemoView: View {
             }
         }
         .sheet(isPresented: $showInfo) {
-            UIKit_UIButton_InfoView()
+            InfoView(fileName: "UIKit_UIButton_Demo", fileType: "md")
                 .presentationSizing(.page)
         }
         .animation(.easeInOut, value: showToast)

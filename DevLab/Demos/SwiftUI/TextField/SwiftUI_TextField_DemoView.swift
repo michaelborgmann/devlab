@@ -62,7 +62,7 @@ struct SwiftUI_TextField_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    SwiftUI_TextField_InfoView()
+                    InfoView(fileName: "SwiftUI_TextField_Demo", fileType: "md")
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -91,7 +91,7 @@ struct SwiftUI_TextField_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_TextField_InfoView()
+            InfoView(fileName: "SwiftUI_TextField_Demo", fileType: "md")
                 .presentationSizing(.page)
         }
         .navigationTitle("TextField")

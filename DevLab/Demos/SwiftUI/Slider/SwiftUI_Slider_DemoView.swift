@@ -62,7 +62,7 @@ struct SwiftUI_Slider_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    SwiftUI_Slider_InfoView()
+                    InfoView(fileName: "SwiftUI_Slider_Demo", fileType: "md")
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -91,7 +91,7 @@ struct SwiftUI_Slider_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Slider_InfoView()
+            InfoView(fileName: "SwiftUI_Slider_Demo", fileType: "md")
                 .presentationSizing(.page)
         }
         .navigationTitle("Slider")

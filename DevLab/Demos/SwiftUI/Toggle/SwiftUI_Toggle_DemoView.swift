@@ -61,7 +61,7 @@ struct SwiftUI_Toggle_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    SwiftUI_Toggle_InfoView()
+                    InfoView(fileName: "SwiftUI_Toggle_Demo", fileType: "md")
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -90,7 +90,7 @@ struct SwiftUI_Toggle_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Toggle_InfoView()
+            InfoView(fileName: "SwiftUI_Toggle_Demo", fileType: "md")
                 .presentationSizing(.page)
         }
         .navigationTitle("Toggle")

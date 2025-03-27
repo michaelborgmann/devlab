@@ -57,7 +57,7 @@ struct Angular_Basic_DemoView: View {
                 #endif
             }
             .sheet(isPresented: $showInfo) {
-                Angular_Basic_InfoView()
+                InfoView(fileName: "Angular_Basic_Demo", fileType: "md")
                     .presentationSizing(.page)
                     .accessibilityLabel("Angular Basic Info Sheet")
                     .accessibilityHint("Displays additional information about the demo.")

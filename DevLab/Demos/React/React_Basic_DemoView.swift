@@ -57,7 +57,7 @@ struct React_Basic_DemoView: View {
                 #endif
             }
             .sheet(isPresented: $showInfo) {
-                React_Basic_InfoView()
+                InfoView(fileName: "React_Basic_Demo", fileType: "md")
                     .presentationSizing(.page)
                     .accessibilityLabel("React Basic Info Sheet")
                     .accessibilityHint("Displays additional information about the demo.")

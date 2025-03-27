@@ -62,7 +62,7 @@ struct SwiftUI_Stepper_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    SwiftUI_Stepper_InfoView()
+                    InfoView(fileName: "SwiftUI_Stepper_Demo", fileType: "md")
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -91,7 +91,7 @@ struct SwiftUI_Stepper_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Stepper_InfoView()
+            InfoView(fileName: "SwiftUI_Stepper_Demo", fileType: "md")
                 .presentationSizing(.page)
         }
         .navigationTitle("Stepper")

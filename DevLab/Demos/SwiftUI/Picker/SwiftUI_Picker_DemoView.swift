@@ -62,7 +62,7 @@ struct SwiftUI_Picker_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    SwiftUI_Picker_InfoView()
+                    InfoView(fileName: "SwiftUI_Picker_Demo", fileType: "md")
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -91,7 +91,7 @@ struct SwiftUI_Picker_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Picker_InfoView()
+            InfoView(fileName: "SwiftUI_Picker_Demo", fileType: "md")
                 .presentationSizing(.page)
         }
         .navigationTitle("Picker")
