@@ -14,6 +14,7 @@
                             { "title": "Stepper", "view": "SwiftUI_Stepper_DemoView" },
                             { "title": "Slider", "view": "SwiftUI_Slider_DemoView" },
                             { "title": "Picker", "view": "SwiftUI_Picker_DemoView" },
+                            { "title": "DatePicker", "view": "SwiftUI_DatePicker_DemoView" },
                             { "title": "TextField", "view": "SwiftUI_TextField_DemoView" },
                         ]
                     },

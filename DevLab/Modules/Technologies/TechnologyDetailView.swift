@@ -119,6 +119,8 @@ struct TechnologyDetailView: View {
             AnyView(SwiftUI_Picker_DemoView())
         case "SwiftUI_TextField_DemoView":
             AnyView(SwiftUI_TextField_DemoView())
+        case "SwiftUI_DatePicker_DemoView":
+            AnyView(SwiftUI_DatePicker_DemoView())
             
         // UIKit
         #if os(iOS)
