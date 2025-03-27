@@ -1,13 +1,13 @@
 //
-//  SwiftUI_Toggle_DemoView.swift
+//  SwiftUI_Stepper_DemoView.swift
 //  DevLab
 //
-//  Created by Michael Borgmann on 26/03/2025.
+//  Created by Michael Borgmann on 27/03/2025.
 //
 
 import SwiftUI
 
-struct SwiftUI_Toggle_DemoView: View {
+struct SwiftUI_Stepper_DemoView: View {
     
     @State private var showInfo = false
     @State private var subtitle: String?
@@ -21,9 +21,9 @@ struct SwiftUI_Toggle_DemoView: View {
             
             TabView {
                 
-                SwiftUI_Toggle_Basic_DemoView(subtitle: $subtitle)
-                    .tabItem { Text("Basic Toggle") }
-                    .accessibilityLabel("Basic Toggle Demo")
+                SwiftUI_Stepper_Basic_DemoView(subtitle: $subtitle)
+                    .tabItem { Text("Basic Stepper") }
+                    .accessibilityLabel("Basic Stepper Demo")
             }
             #if os(macOS)
             .buttonStyle(.plain)
@@ -32,7 +32,8 @@ struct SwiftUI_Toggle_DemoView: View {
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             #endif
-            .accessibility(identifier: "Toggle Demos Tab View")
+            .accessibility(identifier: "Stepper Demos Tab View")
+            
         }
         .toolbar {
             
@@ -61,7 +62,7 @@ struct SwiftUI_Toggle_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    SwiftUI_Toggle_InfoView()
+                    SwiftUI_Stepper_InfoView()
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -90,16 +91,16 @@ struct SwiftUI_Toggle_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            SwiftUI_Toggle_InfoView()
+            SwiftUI_Stepper_InfoView()
                 .presentationSizing(.page)
         }
-        .navigationTitle("Toggle")
-        .accessibilityLabel("Toggle Demo")
+        .navigationTitle("Stepper")
+        .accessibilityLabel("Stepper Demo")
     }
 }
 
 #Preview {
     NavigationStack {
-        SwiftUI_Toggle_DemoView()
+        SwiftUI_Stepper_DemoView()
     }
 }

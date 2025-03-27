@@ -111,11 +111,17 @@ struct TechnologyDetailView: View {
             AnyView(SwiftUI_Button_DemoView())
         case "SwiftUI_Toggle_DemoView":
             AnyView(SwiftUI_Toggle_DemoView())
+        case "SwiftUI_Stepper_DemoView":
+            AnyView(SwiftUI_Stepper_DemoView())
             
         // UIKit
         #if os(iOS)
         case "UIKit_UIButton_DemoView":
             AnyView(UIKit_UIButton_DemoView())
+            
+        // SpriteKit
+        case "SpriteKit_SKScene_DemoView":
+            AnyView(SpriteKit_SKScene_DemoView())
         #endif
         
         // AppKit
@@ -123,10 +129,6 @@ struct TechnologyDetailView: View {
         case "AppKit_NSButton_DemoView":
             AnyView(AppKit_NSButton_DemoView())
         #endif
-        
-        // SpriteKit
-        case "SpriteKit_SKScene_DemoView":
-            AnyView(SpriteKit_SKScene_DemoView())
         
         // Angular
         case "Angular_Basic_DemoView":

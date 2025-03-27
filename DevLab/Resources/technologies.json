@@ -11,6 +11,7 @@
                         "demos": [
                             { "title": "Button", "view": "SwiftUI_Button_DemoView" },
                             { "title": "Toggle", "view": "SwiftUI_Toggle_DemoView" },
+                            { "title": "Stepper", "view": "SwiftUI_Stepper_DemoView" },
                         ]
                     },
                     {
