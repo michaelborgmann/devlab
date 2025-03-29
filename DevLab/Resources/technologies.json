@@ -19,9 +19,9 @@
                         ]
                     },
                     {
-                        "name": "Navigation",
+                        "name": "Data & Storage",
                         "demos": [
-                            { "title": "Tabs", "view": "SwiftUI_TabView_DemoView" },
+                            { "title": "State", "view": "SwiftUI_State_DemoView" },
                         ]
                     }
                 ]
