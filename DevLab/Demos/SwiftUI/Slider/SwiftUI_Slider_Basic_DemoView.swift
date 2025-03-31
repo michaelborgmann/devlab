@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-struct SwiftUI_Slider_Basic_DemoView: View {
+struct SwiftUI_Slider_Basic_DemoView: DemoPage {
 
     @State private var value: Double = 50
-    @Binding var subtitle: String?
+    
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     var body: some View {
         VStack(spacing: 30) {
@@ -21,7 +23,7 @@ struct SwiftUI_Slider_Basic_DemoView: View {
             
             Slider(value: $value, in: 0...100, step: 1)
                 .onChange(of: value) { _, newValue in
-                    subtitle = "Slider Value: \(Int(newValue))"
+                    viewModel.subtitle = "Slider Value: \(Int(newValue))"
                 }
                 .accessibilityLabel("Adjustable Value")
                 .accessibilityValue(Text("\(Int(value))"))
@@ -35,11 +37,12 @@ struct SwiftUI_Slider_Basic_DemoView: View {
         }
         .padding()
         .onAppear {
-            subtitle = "Basic Slider"
+            viewModel.subtitle = "Basic Slider"
         }
     }
 }
 
 #Preview {
-    SwiftUI_Slider_Basic_DemoView(subtitle: .constant(nil))
+    @Previewable @State var viewModel = DemoViewModel()
+    SwiftUI_Slider_Basic_DemoView(viewModel: $viewModel)
 }

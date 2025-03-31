@@ -1,39 +1,35 @@
 //
-//  SwiftUI_State_DemoView.swift
+//  SpriteKit_SKScene_DemoView.swift
 //  DevLab
 //
-//  Created by Michael Borgmann on 30/03/2025.
+//  Created by Michael Borgmann on 21/03/2025.
 //
 
 import SwiftUI
+import SpriteKit
 
-struct SwiftUI_State_DemoView: View {
+struct SpriteKit_XcodeTemplate_DemoView: View {
     
     @State private var showInfo = false
     @State private var subtitle: String?
     @State private var customizeAction: (() -> Void)? = nil
     
+    var gameScene: SpriteKit_XcodeTemplate_GameScene {
+        let scene = SpriteKit_XcodeTemplate_GameScene()
+        scene.scaleMode = .aspectFill
+//        scene.size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        scene.size = .zero
+        return scene
+    }
+    
     var body: some View {
-        VStack {
-            
-            // Spacer ensures the VStack has a valid intrinsic height to layout the TabView correctly.
-            Spacer()
-            
-            TabView {
-                
-                SwiftUI_State_OnOff_DemoView(subtitle: $subtitle)
-                    .tabItem { Text("State On/Off") }
-                    .accessibilityLabel("State On/Off Demo")
-            }
-            #if os(macOS)
-            .buttonStyle(.plain)
-            .tabViewStyle(.sidebarAdaptable)
-            #elseif os(iOS)
-            .tabViewStyle(PageTabViewStyle())
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            #endif
-            .accessibility(identifier: "State Demos Tab View")
-        }
+
+        SpriteView(
+            scene: gameScene,
+            debugOptions: [.showsFPS, .showsNodeCount, .showsPhysics]
+        )
+//        .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: UIScreen.main.bounds.height)
+        .ignoresSafeArea()
         .toolbar {
             
             // NOTE: iOS only, centers subtitle in navigation bar.
@@ -61,7 +57,7 @@ struct SwiftUI_State_DemoView: View {
                 }
                 
                 NavigationLink(destination: {
-                    InfoView(fileName: "SwiftUI_State_Demo", fileType: "md")
+                    InfoView(fileName: "SpriteKit_XcodeTemplate_Demo", fileType: "md")
                 }, label: {
                     Image(systemName: "info.circle")
                 })
@@ -69,6 +65,7 @@ struct SwiftUI_State_DemoView: View {
                 .accessibilityHint("Opens the info sheet with details about the demo.")
                 .accessibilityValue(showInfo ? "Information sheet is open" : "Information sheet is closed")
             }
+            
             #elseif os(iOS)
             ToolbarItemGroup(placement: .topBarTrailing) {
                 
@@ -90,16 +87,16 @@ struct SwiftUI_State_DemoView: View {
             #endif
         }
         .sheet(isPresented: $showInfo) {
-            InfoView(fileName: "SwiftUI_State_Demo", fileType: "md")
+            InfoView(fileName: "SpriteKit_XcodeTemplate_Demo", fileType: "md")
                 .presentationSizing(.page)
         }
-        .navigationTitle("State On/Off")
-        .accessibilityLabel("State On/Off Demo")
+        .navigationTitle("SpriteKit Demo")
+        .accessibilityLabel("SpriteKit Demo")
     }
 }
 
 #Preview {
     NavigationStack {
-        SwiftUI_State_DemoView()
+        SpriteKit_XcodeTemplate_DemoView()
     }
 }

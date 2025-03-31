@@ -9,19 +9,19 @@
                     {
                         "name": "Views",
                         "demos": [
-                            { "title": "Button", "view": "SwiftUI_Button_DemoView" },
-                            { "title": "Toggle", "view": "SwiftUI_Toggle_DemoView" },
-                            { "title": "Stepper", "view": "SwiftUI_Stepper_DemoView" },
-                            { "title": "Slider", "view": "SwiftUI_Slider_DemoView" },
-                            { "title": "Picker", "view": "SwiftUI_Picker_DemoView" },
-                            { "title": "DatePicker", "view": "SwiftUI_DatePicker_DemoView" },
-                            { "title": "TextField", "view": "SwiftUI_TextField_DemoView" },
+                            { "title": "Button", "view": "SwiftUI_Button_Demo" },
+                            { "title": "Toggle", "view": "SwiftUI_Toggle_Demo" },
+                            { "title": "Stepper", "view": "SwiftUI_Stepper_Demo" },
+                            { "title": "Slider", "view": "SwiftUI_Slider_Demo" },
+                            { "title": "Picker", "view": "SwiftUI_Picker_Demo" },
+                            { "title": "DatePicker", "view": "SwiftUI_DatePicker_Demo" },
+                            { "title": "TextField", "view": "SwiftUI_TextField_Demo" },
                         ]
                     },
                     {
                         "name": "Data & Storage",
                         "demos": [
-                            { "title": "State", "view": "SwiftUI_State_DemoView" },
+                            { "title": "State", "view": "SwiftUI_State_Demo" },
                         ]
                     }
                 ]
@@ -32,7 +32,7 @@
                     {
                         "name": "Views & Controls",
                         "demos": [
-                            { "title": "UIButton", "view": "UIKit_UIButton_DemoView" },
+                            { "title": "UIButton", "view": "UIKit_UIButton_Demo" },
                         ]
                     }
                 ]
@@ -43,7 +43,7 @@
                     {
                         "name": "Views & Controls",
                         "demos": [
-                            { "title": "NSButton", "view": "AppKit_NSButton_DemoView" },
+                            { "title": "NSButton", "view": "AppKit_NSButton_Demo" },
                         ]
                     }
                 ]
@@ -54,7 +54,7 @@
                     {
                         "name": "Essentials",
                         "demos": [
-                            { "title": "SKScene", "view": "SpriteKit_SKScene_DemoView" },
+                            { "title": "SKScene", "view": "SpriteKit_SKScene_Demo" },
                         ]
                     }
                 ]
@@ -76,7 +76,7 @@
                     {
                         "name": "Views",
                         "demos": [
-                            { "title": "Angular Basic", "view": "Angular_Basic_DemoView" },
+                            { "title": "Angular Basic", "view": "Angular_Basic_Demo" },
                         ]
                     }
                 ]
@@ -87,7 +87,7 @@
                     {
                         "name": "Views",
                         "demos": [
-                            { "title": "React Basic", "view": "React_Basic_DemoView" },
+                            { "title": "React Basic", "view": "React_Basic_Demo" },
                         ]
                     }
                 ]
@@ -98,7 +98,7 @@
                     {
                         "name": "Views",
                         "demos": [
-                            { "title": "Vue.js Basic", "view": "VueJS_Basic_DemoView" },
+                            { "title": "Vue.js Basic", "view": "VueJS_Basic_Demo" },
                         ]
                     }
                 ]

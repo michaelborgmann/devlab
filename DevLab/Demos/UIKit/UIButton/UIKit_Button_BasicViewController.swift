@@ -86,11 +86,10 @@ class UIKit_Button_BasicViewController: UIViewController {
 
 import SwiftUI
 
-struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresentable {
+struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresentable, DemoPage {
     
-    @Binding var showToast: Bool
-    @Binding var toastMessage: String
-    @Binding var subtitle: String?
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     class Coordinator: NSObject {
         
@@ -107,12 +106,12 @@ struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresenta
                 .receive(on: RunLoop.main)
                 .sink { message in
                     if !message.isEmpty {
-                        self.parent.toastMessage = message
-                        self.parent.showToast = true
+                        self.parent.viewModel.toastMessage = message
+                        self.parent.viewModel.showToast = true
 
                         Task { @MainActor in
                             try? await Task.sleep(for: .seconds(1))
-                            self.parent.showToast = false
+                            self.parent.viewModel.showToast = false
                         }
                     }
                 }
@@ -121,7 +120,7 @@ struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresenta
             viewController.$subtitle
                 .receive(on: RunLoop.main)
                 .sink { newSubtitle in
-                    self.parent.subtitle = newSubtitle
+                    self.parent.viewModel.subtitle = newSubtitle
                 }
                 .store(in: &cancellables)
         }
@@ -143,12 +142,9 @@ struct UIKit_Button_BasicViewControllerRepresentable: UIViewControllerRepresenta
 }
 
 #Preview {
-    @Previewable @State var showToast = false
-    @Previewable @State var toastMessage = ""
-    @Previewable @State var subtitle: String? = nil
-    
+    @Previewable @State var viewModel = DemoViewModel()
     NavigationStack {
-        UIKit_Button_BasicViewControllerRepresentable(showToast: $showToast, toastMessage: $toastMessage, subtitle: $subtitle)
+        UIKit_Button_BasicViewControllerRepresentable(viewModel: $viewModel, id: UUID())
     }
 }
 

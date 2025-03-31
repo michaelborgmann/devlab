@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct SwiftUI_Stepper_Basic_DemoView: View {
+struct SwiftUI_Stepper_Basic_DemoView: DemoPage {
     
     @State private var value: Int = 0
     @State private var stepSize: Int = 1
-    @Binding var subtitle: String?
+    
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     var body: some View {
         VStack(spacing: 30) {
@@ -22,7 +24,7 @@ struct SwiftUI_Stepper_Basic_DemoView: View {
             
             Stepper("Value: \(value)", value: $value, in: 0...100, step: stepSize)
                 .onChange(of: value) { _, newValue in
-                    subtitle = "Stepper Value: \(newValue)"
+                    viewModel.subtitle = "Stepper Value: \(newValue)"
                 }
                 .accessibilityValue("\(value)")
                 .accessibilityHint("Tap plus to increase, minus to decrease.")
@@ -31,11 +33,12 @@ struct SwiftUI_Stepper_Basic_DemoView: View {
         }
         .padding()
         .onAppear {
-            subtitle = "Basic Stepper"
+            viewModel.subtitle = "Basic Stepper"
         }
     }
 }
 
 #Preview {
-    SwiftUI_Stepper_Basic_DemoView(subtitle: .constant(nil))
+    @Previewable @State var viewModel = DemoViewModel()
+    SwiftUI_Stepper_Basic_DemoView(viewModel: $viewModel)
 }

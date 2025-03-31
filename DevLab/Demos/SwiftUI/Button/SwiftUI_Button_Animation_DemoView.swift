@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct SwiftUI_Button_Animation_DemoView: View {
-    
-    @Binding var subtitle: String?
+struct SwiftUI_Button_Animation_DemoView: DemoPage {
     
     @State private var isScaling = false
     @State private var isRotating = false
+    
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     var body: some View {
         
@@ -48,14 +49,12 @@ struct SwiftUI_Button_Animation_DemoView: View {
             Spacer()
         }
         .onAppear {
-            subtitle = "Animated Buttons"
+            viewModel.subtitle = "Animated Buttons"
         }
     }
 }
 
 #Preview {
-    @Previewable @State var showToast = false
-    @Previewable @State var toastMessage = ""
-    
-    SwiftUI_Button_Animation_DemoView(subtitle: .constant(nil))
+    @Previewable @State var viewModel = DemoViewModel()
+    SwiftUI_Button_Animation_DemoView(viewModel: $viewModel)
 }

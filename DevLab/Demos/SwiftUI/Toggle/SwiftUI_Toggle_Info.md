@@ -1,4 +1,4 @@
-#  SwiftUI Toggle Demo
+#  SwiftUI Toggle
 
 This demo showcases different ways to use toggles in SwiftUI, including styling, animations, and state management.
 

@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct SwiftUI_Picker_Basic_DemoView: View {
+struct SwiftUI_Picker_Basic_DemoView: DemoPage {
     
     @State private var selectedStyle: SwiftUI_PickerStyleType = .automatic
     @State private var selectedOption: Int = 0
-    @Binding var subtitle: String?
+    
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     let options = ["Option 1", "Option 2", "Option 3"]
     
@@ -40,11 +42,12 @@ struct SwiftUI_Picker_Basic_DemoView: View {
         }
         .padding()
         .onAppear {
-            subtitle = "Basic Picker"
+            viewModel.subtitle = "Basic Picker"
         }
     }
 }
 
 #Preview {
-    SwiftUI_Slider_Basic_DemoView(subtitle: .constant(nil))
+    @Previewable @State var viewModel = DemoViewModel()
+    SwiftUI_Picker_Basic_DemoView(viewModel: $viewModel)
 }

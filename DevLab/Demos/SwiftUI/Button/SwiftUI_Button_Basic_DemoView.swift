@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct SwiftUI_Button_Basic_DemoView: View {
+struct SwiftUI_Button_Basic_DemoView: DemoPage {
     
     @State private var selectedStyle: SwiftUI_ButtonStyleType = .automatic
     
-    @Binding var showToast: Bool
-    @Binding var toastMessage: String
-    @Binding var subtitle: String?
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     var body: some View {
         VStack(spacing: 30) {
@@ -32,7 +31,7 @@ struct SwiftUI_Button_Basic_DemoView: View {
             Spacer()
         }
         .onAppear {
-            subtitle = "Basic Button"
+            viewModel.subtitle = "Basic Button"
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Basic Button Demo. Select a button style and trigger an action.")
@@ -41,26 +40,26 @@ struct SwiftUI_Button_Basic_DemoView: View {
     
     private func showToastMessage() {
         
-        toastMessage = "Button Pressed"
-        showToast = true
+        viewModel.toastMessage = "Button Pressed"
+        viewModel.showToast = true
         
         Task {
             try? await Task.sleep(for: .seconds(1))
-            showToast = false
+            viewModel.showToast = false
         }
     }
 }
 
 #Preview {
-    @Previewable @State var showToast = false
-    @Previewable @State var toastMessage = ""
+
+    @Previewable @State var viewModel = DemoViewModel()
     
     VStack {
-        SwiftUI_Button_Basic_DemoView(showToast: $showToast, toastMessage: $toastMessage, subtitle: .constant(nil))
+        SwiftUI_Button_Basic_DemoView(viewModel: $viewModel)
     }
     .overlay {
-        Text(toastMessage)
-            .toast(showToast: $showToast, toastMessage: $toastMessage)
+        Text(viewModel.toastMessage)
+            .toast(showToast: $viewModel.showToast, toastMessage: $viewModel.toastMessage)
     }
-    .animation(.easeInOut, value: showToast)
+    .animation(.easeInOut, value: viewModel.showToast)
 }

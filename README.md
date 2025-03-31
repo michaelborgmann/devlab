@@ -55,23 +55,78 @@ The project is organized into different modules to keep the codebase clean and s
 * **UI Components** - Reusable UI components
 * **Resources** - Static assets like JSON, images, etc.
 
-### 🆕 Adding a New Demo (Apple Ecosystem)
+## 🆕 Adding a New Demo (Apple Ecosystem)
 
 To add a new demo, follow these steps:
 
-1. **Choose a category**
-  * If a folder for the category (e.g., `SwiftUI`) already exists under `Demos/`, add the new demo there.
-  * If not, create a new folder (e.g., `Demos/AudioKit/DemoName/`).
-2. **Create the demo view**
-  * Name your demo view following this pattern:
-  ```
-  <Category>_<DemoName>_DemoView.swift
-  ```
-3. **Update `Resources/technologies.json`**
-  * Add an entry under the correct technology section:
-  ```
-  { "title": "Demo Title", "view": "<Category>_<DemoName>_DemoView.swift" }
-  ```
+1️⃣ **Choose a Category**
+* If a folder for the category (e.g., `SwiftUI`) already exists under `Demos/`, add the new demo there.
+* If not, create a new folder following this pattern:
+
+    ```
+    Demos/<Category>/<DemoName>/
+    ```
+    
+    Example: `Demos/AudioKit/MyNewDemo/`
+
+2️⃣ **Create the Demo View**
+* Name your demo view using this convention:
+
+    ```
+     <Category>_<DemoName>_Demo.swift
+    ```
+    
+    Example: `SwiftUI_Button_Demo.swift`
+  
+* Implement the demo view conforming to the `DemoProtocol`.
+  
+3️⃣ **Implement the Required Protocols**
+* **Define the Demo Structure**
+** Create a struct that conforms to `DemoProtocol`:
+
+    ```
+    struct MyNewDemo: DemoProtocol {
+      var title = "My New Demo"
+      var infoFileName = "MyNewDemo_Info"
+      var demos: [any DemoPage.Type] = [MyNewDemoPageView.self]
+    }
+    ```
+    
+*    **Create the Demo Page**
+** Implement a `DemoPage` for your demo:
+
+    ```
+    struct MyNewDemoPageView: DemoPage {
+        @Binding var viewModel: DemoViewModel
+        let id: UUID
+        
+        var body: some View {
+            VStack {
+                Text("Welcome to My New Demo")
+            }
+            .onAppear {
+                viewModel.subtitle = "My New Demo"
+            }
+        }
+    }
+    ```
+    
+4️⃣ Update `Resources/technologies.json`
+* Add an entry under the appropriate technology section:
+
+    ```
+    { "title": "Demo Title", "view": "<Category>_<DemoName>_Demo.swift" }
+    ```
+    
+    Example:
+    
+    ```
+    { "title": "SwiftUI Button Demo", "view": "SwiftUI_Button_Demo.swift" }
+    ```
+    
+5️⃣ Test Your Demo
+* Run the app and verify that your demo appears in the appropriate category.
+* Ensure the demo works as expected and follows UI/UX guidelines.
 
 ## 🌐 Web Demos
 

@@ -1,4 +1,4 @@
-#  SwiftUI TextField Demo
+#  SwiftUI TextField
 
 This demo showcases different ways to use `TextField` in SwiftUI, including text input, validation, and state management.
 

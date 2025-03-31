@@ -5,6 +5,7 @@
 //  Created by Michael Borgmann on 20/03/2025.
 //
 
+/*
 #if os(macOS)
 
 import SwiftUI
@@ -75,3 +76,4 @@ struct AppKit_NSButton_DemoView: View {
 }
 
 #endif
+*/

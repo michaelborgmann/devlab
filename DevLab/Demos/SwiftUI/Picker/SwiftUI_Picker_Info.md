@@ -1,4 +1,4 @@
-#  SwiftUI Picker Demo
+#  SwiftUI Picker
 
 This demo showcases different ways to use pickers in SwiftUI, including styling, selection management, and state updates.
 

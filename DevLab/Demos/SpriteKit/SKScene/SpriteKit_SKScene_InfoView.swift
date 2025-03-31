@@ -5,6 +5,7 @@
 //  Created by Michael Borgmann on 22/03/2025.
 //
 
+/*
 import SwiftUI
 import MarkdownUI
 
@@ -65,3 +66,4 @@ struct SpriteKit_SKScene_InfoView: View {
 #Preview {
     SpriteKit_SKScene_InfoView()
 }
+*/

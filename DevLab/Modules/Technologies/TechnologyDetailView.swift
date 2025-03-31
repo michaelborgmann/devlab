@@ -107,50 +107,50 @@ struct TechnologyDetailView: View {
         switch demoName {
         
         // SwiftUI
-        case "SwiftUI_Button_DemoView":
-            AnyView(SwiftUI_Button_DemoView())
-        case "SwiftUI_Toggle_DemoView":
-            AnyView(SwiftUI_Toggle_DemoView())
-        case "SwiftUI_Stepper_DemoView":
-            AnyView(SwiftUI_Stepper_DemoView())
-        case "SwiftUI_Slider_DemoView":
-            AnyView(SwiftUI_Slider_DemoView())
-        case "SwiftUI_Picker_DemoView":
-            AnyView(SwiftUI_Picker_DemoView())
-        case "SwiftUI_TextField_DemoView":
-            AnyView(SwiftUI_TextField_DemoView())
-        case "SwiftUI_DatePicker_DemoView":
-            AnyView(SwiftUI_DatePicker_DemoView())
-        case "SwiftUI_State_DemoView":
-            AnyView(SwiftUI_State_DemoView())
+        case "SwiftUI_Button_Demo":
+            AnyView(DemoView(demo: SwiftUI_Button_Demo()))
+        case "SwiftUI_Toggle_Demo":
+            AnyView(DemoView(demo: SwiftUI_Toggle_Demo()))
+        case "SwiftUI_Stepper_Demo":
+            AnyView(DemoView(demo: SwiftUI_Stepper_Demo()))
+        case "SwiftUI_Slider_Demo":
+            AnyView(DemoView(demo: SwiftUI_Slider_Demo()))
+        case "SwiftUI_Picker_Demo":
+            AnyView(DemoView(demo: SwiftUI_Picker_Demo()))
+        case "SwiftUI_TextField_Demo":
+            AnyView(DemoView(demo: SwiftUI_TextField_Demo()))
+        case "SwiftUI_DatePicker_Demo":
+            AnyView(DemoView(demo: SwiftUI_DatePicker_Demo()))
+        case "SwiftUI_State_Demo":
+            AnyView(DemoView(demo: SwiftUI_State_Demo()))
             
         // UIKit
         #if os(iOS)
-        case "UIKit_UIButton_DemoView":
-            AnyView(UIKit_UIButton_DemoView())
+        case "UIKit_UIButton_Demo":
+            AnyView(DemoView(demo: UIKit_UIButton_Demo()))
             
         // SpriteKit
-        case "SpriteKit_SKScene_DemoView":
-            AnyView(SpriteKit_SKScene_DemoView())
+        case "SpriteKit_SKScene_Demo":
+            AnyView(DemoView(demo: SpriteKit_SKScene_Demo()))
         #endif
         
         // AppKit
         #if os(macOS)
-        case "AppKit_NSButton_DemoView":
-            AnyView(AppKit_NSButton_DemoView())
+        case "AppKit_NSButton_Demo":
+            AnyView(DemoView(demo: AppKit_NSButton_Demo()))
         #endif
         
         // Angular
-        case "Angular_Basic_DemoView":
-            AnyView(Angular_Basic_DemoView())
+        case "Angular_Basic_Demo":
+            AnyView(DemoView(demo: Angular_Basic_Demo()))
             
         // React
-        case "React_Basic_DemoView":
-            AnyView(React_Basic_DemoView())
+        case "React_Basic_Demo":
+            AnyView(DemoView(demo: React_Basic_Demo()))
         
         // Vue.js
-        case "VueJS_Basic_DemoView":
-            AnyView(VueJS_Basic_DemoView())
+        case "VueJS_Basic_Demo":
+            AnyView(DemoView(demo: VueJS_Basic_Demo()))
             
         default:
             nil
@@ -164,7 +164,7 @@ struct TechnologyDetailView: View {
     try? viewModel.loadTechnologies()
     
     return NavigationView {
-        if let ecosystem = viewModel.ecosystems.last,
+        if let ecosystem = viewModel.ecosystems.first,
            let technology = ecosystem.technologies.first
         {
             TechnologyDetailView(viewModel: .constant(viewModel), technology: technology)

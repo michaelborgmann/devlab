@@ -1,4 +1,4 @@
-#  SwiftUI Stepper Demo
+#  SwiftUI Stepper
 
 This demo showcases different ways to use steppers in SwiftUI, including styling, range limits, and state management.
 

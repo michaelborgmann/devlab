@@ -1,4 +1,4 @@
-#  SwiftUI Slider Demo
+#  SwiftUI Slider
 
 This demo showcases different ways to use sliders in SwiftUI, including styling, range limits, and state management.
 

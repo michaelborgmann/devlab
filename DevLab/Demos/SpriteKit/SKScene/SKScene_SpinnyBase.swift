@@ -5,6 +5,8 @@
 //  Created by Michael Borgmann on 24/03/2025.
 //
 
+#if os(iOS)
+
 import SpriteKit
 
 class SKScene_SpinnyBase: SKScene {
@@ -60,3 +62,5 @@ class SKScene_SpinnyBase: SKScene {
         }
     }
 }
+
+#endif

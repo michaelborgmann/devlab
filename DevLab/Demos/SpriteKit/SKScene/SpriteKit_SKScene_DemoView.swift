@@ -5,6 +5,8 @@
 //  Created by Michael Borgmann on 22/03/2025.
 //
 
+#if os(iOS)
+
 import SwiftUI
 import SpriteKit
 import PhotosUI
@@ -26,11 +28,7 @@ extension SKSceneScaleMode: @retroactive CaseIterable {
 }
 
 @Observable
-class DemoViewModel {
-    var showInfo = false
-    var subtitle: String?
-    var showCustomizations = false
-    var customizeAction: (() -> Void)? = nil
+class SpriteKitDemoViewModel {
     
     var backgroundColor: Color = .orange
     var sceneWidth: CGFloat = .zero
@@ -40,14 +38,21 @@ class DemoViewModel {
     var selectedImage: UIImage? = nil
 }
 
-struct SpriteKit_SKScene_DemoView: View {
+struct SpriteKit_SKScene_DemoView: DemoPage {
     
-    @State var viewModel: DemoViewModel
+    @State private var spriteKitViewModel = SpriteKitDemoViewModel()
     @State private var gameScene: SpriteKit_SKScene_GameScene
     
-    init(viewModel: DemoViewModel = DemoViewModel()) {
-        self.viewModel = viewModel
-        self._gameScene = State(initialValue: SpriteKit_SKScene_GameScene(viewModel: viewModel))
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
+    
+    init(viewModel: Binding<DemoViewModel>, id: UUID) {
+        self._viewModel = viewModel
+        self.id = id
+        
+        let sceneModel = SpriteKitDemoViewModel() // Create the ViewModel first
+        self._spriteKitViewModel = State(initialValue: sceneModel)
+        self._gameScene = State(initialValue: SpriteKit_SKScene_GameScene(viewModel: viewModel.wrappedValue, sceneModel: sceneModel))
     }
     
     var body: some View {
@@ -77,105 +82,36 @@ struct SpriteKit_SKScene_DemoView: View {
                 Spacer()
             }
         }
-        .onChange(of: viewModel.backgroundColor) { _, _ in
+        .onChange(of: spriteKitViewModel.backgroundColor) { _, _ in
             gameScene.updateBackgroundColor()
         }
-        .onChange(of: viewModel.sceneWidth) { _, newWidth in
+        .onChange(of: spriteKitViewModel.sceneWidth) { _, newWidth in
             gameScene.size.width = newWidth
         }
-        .onChange(of: viewModel.sceneHeight) { _, newHeight in
+        .onChange(of: spriteKitViewModel.sceneHeight) { _, newHeight in
             gameScene.size.height = newHeight
         }
-        .onChange(of: viewModel.selectedImage) { _, _ in
+        .onChange(of: spriteKitViewModel.selectedImage) { _, _ in
             gameScene.updateBackgroundImage()
         }
-        .toolbar {
-            
-            // NOTE: iOS only, centers subtitle in navigation bar.
-            #if os(iOS)
-            ToolbarItem(placement: .principal) {
-                viewModel.subtitle.map {
-                    Text($0)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .accessibilityLabel($0)
-                }
-            }
-            #endif
-            
-            // NOTE: Show demo information.
-            #if os(macOS)
-            ToolbarItemGroup(placement: .automatic) {
-                
-                if let customizeAction = customizeAction {
-                    Button { customizeAction() } label: {
-                        Image(systemName: "slider.horizontal.3")
-                    }
-                    .accessibilityLabel("Open customization options to modify scene settings")
-                    .accessibilityHint("Tapping this opens customization options for the scene")
-                }
-                
-                NavigationLink(destination: {
-                    SwiftUI_Button_InfoView()
-                }, label: {
-                    Image(systemName: "info.circle")
-                })
-                .accessibilityLabel("Open the information sheet to learn more about this demo")
-                .accessibilityHint("Tapping this opens the information sheet with details about the demo and how it works")
-                .accessibilityValue(viewModel.showInfo ? "Information sheet is open" : "Information sheet is closed")
-            }
-            
-            #elseif os(iOS)
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                
-                if viewModel.customizeAction != nil {
-                    Button {
-                        viewModel.showCustomizations.toggle()
-                    }
-                    label: {
-                        Image(systemName: "slider.horizontal.3")
-                    }
-                    .accessibilityLabel("Open customization options to modify scene settings")
-                    .accessibilityHint("Tapping this opens customization options for the scene")
 
-                }
-                
-                Button {
-                    viewModel.showInfo.toggle()
-                } label: {
-                    Image(systemName: "info.circle")
-                }
-                .accessibilityLabel("Open the information sheet to learn more about this demo")
-                .accessibilityHint("Tapping this opens the information sheet with details about the demo and how it works")
-                .accessibilityValue(viewModel.showInfo ? "Information sheet is open" : "Information sheet is closed")
-            }
-            #endif
-        }
-        .sheet(isPresented: $viewModel.showInfo) {
-            SpriteKit_SKScene_InfoView()
-                .presentationSizing(.page)
-                .accessibilityLabel("Information Sheet")
-                .accessibilityHint("This sheet provides additional information about the demo and how it works.")
-        }
         #if os(iOS)
-        .animation(.easeInOut(duration: 0.3), value: viewModel.showCustomizations)
         .sheet(isPresented: $viewModel.showCustomizations) {
-            SpriteKit_SKScene_CustomizationView(viewModel: viewModel)
+            SpriteKit_SKScene_CustomizationView(viewModel: spriteKitViewModel)
                 .presentationDetents([.medium])
                 .accessibilityAddTraits(.isModal)
                 .accessibilityLabel("Customization Options Sheet")
                 .accessibilityHint("Customize various settings for the scene here.")
         }
-        .navigationBarTitleDisplayMode(viewModel.showCustomizations ? .inline : .automatic)
         #endif
-        .navigationTitle("SKScene")
-        .accessibilityLabel("SKScene Demo")
-        .accessibilityHint("This is a demo where you can customize and interact with a SpriteKit scene.")
     }
 }
 
 #Preview {
+    @Previewable @State var viewModel = DemoViewModel()
     NavigationStack {
-        SpriteKit_SKScene_DemoView()
+        SpriteKit_SKScene_DemoView(viewModel: $viewModel)
     }
 }
+
+#endif

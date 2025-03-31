@@ -1,4 +1,4 @@
-#  SwiftUI DatePicker Demo
+#  SwiftUI DatePicker
 
 This demo showcases different ways to use `DatePicker` in SwiftUI, including styling, date formatting, and state updates.
 

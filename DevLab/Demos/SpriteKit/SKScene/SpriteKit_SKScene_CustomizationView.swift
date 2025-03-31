@@ -5,13 +5,15 @@
 //  Created by Michael Borgmann on 24/03/2025.
 //
 
+#if os(iOS)
+
 import SwiftUI
 import PhotosUI
 import SpriteKit
 
 struct SpriteKit_SKScene_CustomizationView: View {
     
-    @Bindable var viewModel: DemoViewModel
+    @Bindable var viewModel: SpriteKitDemoViewModel
     
     var body: some View {
         
@@ -129,5 +131,7 @@ struct SpriteKit_SKScene_CustomizationView: View {
 }
 
 #Preview {
-    SpriteKit_SKScene_CustomizationView(viewModel: DemoViewModel())
+    SpriteKit_SKScene_CustomizationView(viewModel: SpriteKitDemoViewModel())
 }
+
+#endif

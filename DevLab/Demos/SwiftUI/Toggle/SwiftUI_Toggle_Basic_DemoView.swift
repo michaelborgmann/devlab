@@ -5,13 +5,16 @@
 //  Created by Michael Borgmann on 26/03/2025.
 //
 
+
 import SwiftUI
 
-struct SwiftUI_Toggle_Basic_DemoView: View {
+struct SwiftUI_Toggle_Basic_DemoView: DemoPage {
     
     @State private var isOn: Bool = false
     @State private var selectedStyle: SwiftUI_ToggleStyleType = .automatic
-    @Binding var subtitle: String?
+    
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     var body: some View {
         VStack(spacing: 30) {
@@ -27,7 +30,7 @@ struct SwiftUI_Toggle_Basic_DemoView: View {
             
             selectedStyle.style(isOn: $isOn)
                 .onChange(of: isOn) { _, newValue in
-                    subtitle = newValue ? "Basic Toggle (Enabled)" : "Basic Toggle (Disabled)"
+                    viewModel.subtitle = newValue ? "Basic Toggle (Enabled)" : "Basic Toggle (Disabled)"
                 }
                 .accessibilityLabel("Feature Toggle")
                 .accessibilityValue(isOn ? "Enabled" : "Disabled")
@@ -42,11 +45,11 @@ struct SwiftUI_Toggle_Basic_DemoView: View {
         }
         .padding()
         .onAppear {
-            subtitle = "Basic Toggle"
+            viewModel.subtitle = "Basic Toggle"
         }
     }
 }
 
 #Preview {
-    SwiftUI_Toggle_Basic_DemoView(subtitle: .constant(nil))
+    SwiftUI_Toggle_Basic_DemoView(viewModel: .constant(DemoViewModel()))
 }

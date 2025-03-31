@@ -1,4 +1,4 @@
-# SwiftUI Button Demo
+# SwiftUI Button
 
 This demo shows different ways to use buttons in SwiftUI, including styling, animations, and feedback effects.
 

@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct SwiftUI_TextField_Basic_DemoView: View {
+struct SwiftUI_TextField_Basic_DemoView: DemoPage {
     
     @State private var selectedStyle: SwiftUI_TextFieldStyleType = .automatic
     @State private var inputText: String = ""
-    @Binding var subtitle: String?
+    
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     var body: some View {
         VStack(spacing: 30) {
@@ -38,11 +40,12 @@ struct SwiftUI_TextField_Basic_DemoView: View {
         }
         .padding()
         .onAppear {
-            subtitle = "Basic TextField"
+            viewModel.subtitle = "Basic TextField"
         }
     }
 }
 
 #Preview {
-    SwiftUI_TextField_Basic_DemoView(subtitle: .constant(nil))
+    @Previewable @State var viewModel = DemoViewModel()
+    SwiftUI_TextField_Basic_DemoView(viewModel: $viewModel)
 }

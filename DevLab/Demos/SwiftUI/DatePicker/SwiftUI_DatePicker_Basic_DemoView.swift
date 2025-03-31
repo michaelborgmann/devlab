@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct SwiftUI_DatePicker_Basic_DemoView: View {
+struct SwiftUI_DatePicker_Basic_DemoView: DemoPage {
     
     @State private var selectedStyle: SwiftUI_DatePickerStyleType = .automatic
     @State private var selectedDate: Date = Date()
-    @Binding var subtitle: String?
+    
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
     
     var body: some View {
         VStack(spacing: 30) {
@@ -37,7 +39,7 @@ struct SwiftUI_DatePicker_Basic_DemoView: View {
         }
         .padding()
         .onAppear {
-            subtitle = "Basic Date Picker"
+            viewModel.subtitle = "Basic Date Picker"
         }
     }
     
@@ -50,5 +52,6 @@ struct SwiftUI_DatePicker_Basic_DemoView: View {
 }
 
 #Preview {
-    SwiftUI_DatePicker_Basic_DemoView(subtitle: .constant(nil))
+    @Previewable @State var viewModel = DemoViewModel()
+    SwiftUI_DatePicker_Basic_DemoView(viewModel: $viewModel)
 }

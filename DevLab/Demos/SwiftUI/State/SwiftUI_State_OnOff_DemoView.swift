@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-struct SwiftUI_State_OnOff_DemoView: View {
+struct SwiftUI_State_OnOff_DemoView: DemoPage {
     
     @State private var isOn: Bool = false
-    @Binding var subtitle: String?
+    
+    @Binding var viewModel: DemoViewModel
+    let id: UUID
 
     var body: some View {
         
@@ -47,13 +49,12 @@ struct SwiftUI_State_OnOff_DemoView: View {
         }
         .padding()
         .onAppear {
-            subtitle = "State On/Off"
+            viewModel.subtitle = "State On/Off"
         }
     }
 }
 
 #Preview {
-    NavigationStack {
-        SwiftUI_State_OnOff_DemoView(subtitle: .constant(nil))
-    }
+    @Previewable @State var viewModel = DemoViewModel()
+    SwiftUI_State_OnOff_DemoView(viewModel: $viewModel)
 }

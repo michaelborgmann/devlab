@@ -5,16 +5,20 @@
 //  Created by Michael Borgmann on 22/03/2025.
 //
 
+#if os(iOS)
+
 import SpriteKit
 
 class SpriteKit_SKScene_GameScene: SKScene_SpinnyBase {
     
     let viewModel: DemoViewModel
+    let sceneModel: SpriteKitDemoViewModel
     
     private var imageSpriteNode: SKSpriteNode?
     
-    init(viewModel: DemoViewModel) {
+    init(viewModel: DemoViewModel, sceneModel: SpriteKitDemoViewModel) {
         self.viewModel = viewModel
+        self.sceneModel = sceneModel
         let size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         super.init(size: size)
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -44,7 +48,7 @@ class SpriteKit_SKScene_GameScene: SKScene_SpinnyBase {
     }
     
     func updateBackgroundColor() {
-        backgroundColor = SKColor(viewModel.backgroundColor)
+        backgroundColor = SKColor(sceneModel.backgroundColor)
     }
     
     func updateSubtitle() {
@@ -55,7 +59,7 @@ class SpriteKit_SKScene_GameScene: SKScene_SpinnyBase {
     
     func updateBackgroundImage() {
         
-        guard let image = viewModel.selectedImage else {
+        guard let image = sceneModel.selectedImage else {
             imageSpriteNode?.removeFromParent()
             imageSpriteNode = nil
             return
@@ -73,3 +77,5 @@ class SpriteKit_SKScene_GameScene: SKScene_SpinnyBase {
         }
     }
 }
+
+#endif
