@@ -5,15 +5,19 @@
 //  Created by Michael Borgmann on 24/03/2025.
 //
 
-#if os(iOS)
-
 import SwiftUI
 import PhotosUI
 import SpriteKit
 
 struct SpriteKit_SKScene_CustomizationView: View {
     
-    @Bindable var viewModel: SpriteKitDemoViewModel
+    @Bindable var viewModel: SpriteKit_SKScene_ViewModel
+    
+    #if os(iOS)
+    let screenSize = UIScreen.main.bounds.size
+    #elseif os(macOS)
+    let screenSize = NSScreen.main?.frame.size ?? CGSize(width: 800, height: 600) // Default size if no screen available
+    #endif
     
     var body: some View {
         
@@ -32,7 +36,7 @@ struct SpriteKit_SKScene_CustomizationView: View {
                         Stepper("Scene Width: \(Int(viewModel.sceneWidth))", value: $viewModel.sceneWidth)
                         Slider(
                             value: $viewModel.sceneWidth,
-                            in: -UIScreen.main.bounds.width...UIScreen.main.bounds.width * 10
+                            in: -screenSize.width...screenSize.width * 10
                         )
                         .accessibilityLabel("Scene Width")
                         .accessibilityValue("\(Int(viewModel.sceneWidth)) pixels")
@@ -43,7 +47,7 @@ struct SpriteKit_SKScene_CustomizationView: View {
                         Stepper("Scene Height: \(Int(viewModel.sceneHeight))", value: $viewModel.sceneHeight)
                         Slider(
                             value: $viewModel.sceneHeight,
-                            in: -UIScreen.main.bounds.height...UIScreen.main.bounds.height * 10
+                            in: -screenSize.height...screenSize.height * 10
                         )
                         .accessibilityLabel("Scene Width")
                         .accessibilityValue("\(Int(viewModel.sceneWidth)) pixels")
@@ -66,14 +70,24 @@ struct SpriteKit_SKScene_CustomizationView: View {
                 Section(header: Text("Add SKSpriteNode")) {
                     
                             PhotosPicker(selection: $viewModel.selectedPhoto, matching: .images) {
-                                if let uiImage = viewModel.selectedImage {
+                                
+                                if let image = viewModel.selectedImage {
                                 
                                     ZStack(alignment: .topTrailing) {
-                                        Image(uiImage: uiImage)
+
+                                        #if os(iOS)
+                                        Image(uiImage: image)
                                             .resizable()
                                             .scaledToFit()
                                             .frame(height: 100)
                                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        #elseif os(macOS)
+                                        Image(nsImage: image)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(height: 100)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        #endif
                                         
                                         Button(action: {
                                             viewModel.selectedImage = nil
@@ -114,9 +128,17 @@ struct SpriteKit_SKScene_CustomizationView: View {
                             .onChange(of: viewModel.selectedPhoto) { _, newPhoto in
                                 if let newPhoto {
                                     Task {
-                                        if let data = try? await newPhoto.loadTransferable(type: Data.self),
-                                           let uiImage = UIImage(data: data) {
-                                            viewModel.selectedImage = uiImage
+                                        if let data = try? await newPhoto.loadTransferable(type: Data.self) {
+                                            
+                                            #if os(iOS)
+                                            if let uiImage = UIImage(data: data) {
+                                                viewModel.selectedImage = uiImage
+                                            }
+                                            #elseif os(macOS)
+                                            if let uiImage = NSImage(data: data) {
+                                                viewModel.selectedImage = uiImage
+                                            }
+                                            #endif
                                         }
                                     }
                                 }
@@ -131,7 +153,5 @@ struct SpriteKit_SKScene_CustomizationView: View {
 }
 
 #Preview {
-    SpriteKit_SKScene_CustomizationView(viewModel: SpriteKitDemoViewModel())
+    SpriteKit_SKScene_CustomizationView(viewModel: SpriteKit_SKScene_ViewModel())
 }
-
-#endif

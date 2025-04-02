@@ -5,22 +5,25 @@
 //  Created by Michael Borgmann on 22/03/2025.
 //
 
-#if os(iOS)
-
 import SpriteKit
 
 class SpriteKit_SKScene_GameScene: SKScene_SpinnyBase {
     
     let viewModel: DemoViewModel
-    let sceneModel: SpriteKitDemoViewModel
+    let sceneModel: SpriteKit_SKScene_ViewModel
     
     private var imageSpriteNode: SKSpriteNode?
     
-    init(viewModel: DemoViewModel, sceneModel: SpriteKitDemoViewModel) {
+    #if os(iOS)
+    let screenSize = UIScreen.main.bounds.size
+    #elseif os(macOS)
+    let screenSize = NSScreen.main?.frame.size ?? CGSize(width: 800, height: 600) // Default size if no screen available
+    #endif
+    
+    init(viewModel: DemoViewModel, sceneModel: SpriteKit_SKScene_ViewModel) {
         self.viewModel = viewModel
         self.sceneModel = sceneModel
-        let size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        super.init(size: size)
+        super.init(size: screenSize)
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
     }
     
@@ -33,13 +36,6 @@ class SpriteKit_SKScene_GameScene: SKScene_SpinnyBase {
         
         updateBackgroundColor()
         updateSubtitle()
-        
-        // Set the action here to ensure the scene is fully initialized before modifying viewModel.
-        viewModel.customizeAction = { [weak self] in
-            Task { @MainActor in
-                self?.viewModel.showCustomizations.toggle()
-            }
-        }
     }
     
     override func didChangeSize(_ oldSize: CGSize) {
@@ -77,5 +73,3 @@ class SpriteKit_SKScene_GameScene: SKScene_SpinnyBase {
         }
     }
 }
-
-#endif

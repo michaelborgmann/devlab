@@ -128,10 +128,6 @@ struct TechnologyDetailView: View {
         #if os(iOS)
         case "UIKit_UIButton_Demo":
             AnyView(DemoView(demo: UIKit_UIButton_Demo()))
-            
-        // SpriteKit
-        case "SpriteKit_SKScene_Demo":
-            AnyView(DemoView(demo: SpriteKit_SKScene_Demo()))
         #endif
         
         // AppKit
@@ -140,6 +136,10 @@ struct TechnologyDetailView: View {
             AnyView(DemoView(demo: AppKit_NSButton_Demo()))
         #endif
         
+        // SpriteKit
+        case "SpriteKit_SKScene_Demo":
+            AnyView(DemoView(demo: SpriteKit_SKScene_Demo()))
+            
         // Angular
         case "Angular_Basic_Demo":
             AnyView(DemoView(demo: Angular_Basic_Demo()))

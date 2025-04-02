@@ -5,8 +5,6 @@
 //  Created by Michael Borgmann on 24/03/2025.
 //
 
-#if os(iOS)
-
 import SpriteKit
 
 class SKScene_SpinnyBase: SKScene {
@@ -25,7 +23,7 @@ class SKScene_SpinnyBase: SKScene {
         
         node.isAccessibilityElement = true
         node.accessibilityLabel = "Spinning shape"
-        node.accessibilityTraits = .adjustable
+//        node.accessibilityTraits = .adjustable
         
         return node
     }
@@ -37,6 +35,10 @@ class SKScene_SpinnyBase: SKScene {
             self.addChild(spinny)
         }
     }
+}
+
+#if os(iOS) || os(tvOS)
+extension SKScene_SpinnyBase {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
@@ -62,5 +64,23 @@ class SKScene_SpinnyBase: SKScene {
         }
     }
 }
+#endif
 
+#if os(macOS)
+// Mouse-based event handling
+extension SKScene_SpinnyBase {
+
+    override func mouseDown(with event: NSEvent) {
+        self.makeSpinny(at: event.location(in: self), color: SKColor.green)
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        self.makeSpinny(at: event.location(in: self), color: SKColor.blue)
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        self.makeSpinny(at: event.location(in: self), color: SKColor.red)
+    }
+
+}
 #endif
