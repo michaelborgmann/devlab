@@ -123,6 +123,8 @@ struct TechnologyDetailView: View {
             AnyView(DemoView(demo: SwiftUI_DatePicker_Demo()))
         case "SwiftUI_State_Demo":
             AnyView(DemoView(demo: SwiftUI_State_Demo()))
+        case "SwiftUI_Binding_Demo":
+            AnyView(DemoView(demo: SwiftUI_Binding_Demo()))
             
         // UIKit
         #if os(iOS)

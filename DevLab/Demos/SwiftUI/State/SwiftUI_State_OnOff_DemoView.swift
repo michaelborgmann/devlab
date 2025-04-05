@@ -18,7 +18,7 @@ struct SwiftUI_State_OnOff_DemoView: DemoPage {
         
         VStack(spacing: 30) {
             
-            Text("On/Off State Demo")
+            Text("On/Off @State Demo")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
             

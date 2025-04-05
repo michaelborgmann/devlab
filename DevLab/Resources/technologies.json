@@ -22,6 +22,7 @@
                         "name": "Data & Storage",
                         "demos": [
                             { "title": "State", "view": "SwiftUI_State_Demo" },
+                            { "title": "Binding", "view": "SwiftUI_Binding_Demo" },
                         ]
                     }
                 ]
