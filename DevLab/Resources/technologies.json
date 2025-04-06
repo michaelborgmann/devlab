@@ -21,8 +21,9 @@
                     {
                         "name": "Data & Storage",
                         "demos": [
-                            { "title": "State", "view": "SwiftUI_State_Demo" },
-                            { "title": "Binding", "view": "SwiftUI_Binding_Demo" },
+                            { "title": "@State", "view": "SwiftUI_State_Demo" },
+                            { "title": "@Binding", "view": "SwiftUI_Binding_Demo" },
+                            { "title": "@ObservedObject", "view": "SwiftUI_ObservedObject_Demo" },
                         ]
                     }
                 ]
