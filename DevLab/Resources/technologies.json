@@ -25,6 +25,7 @@
                             { "title": "@Binding", "view": "SwiftUI_Binding_Demo" },
                             { "title": "@ObservedObject", "view": "SwiftUI_ObservedObject_Demo" },
                             { "title": "@StateObject", "view": "SwiftUI_StateObject_Demo" },
+                            { "title": "@EnvironmentObject", "view": "SwiftUI_EnvironmentObject_Demo" },
                         ]
                     }
                 ]

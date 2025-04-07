@@ -26,7 +26,7 @@ struct SwiftUI_StateObject_DemoView: DemoPage {
             Text("@StateObject: ViewModel Persists Across View Switches")
                 .font(.headline)
                 .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, alignment: .center) // optional, for full-width centering
+                .frame(maxWidth: .infinity, alignment: .center)
                 .accessibilityAddTraits(.isHeader)
 
             Spacer()

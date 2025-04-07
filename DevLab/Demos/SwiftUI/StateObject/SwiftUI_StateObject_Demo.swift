@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SwiftUI_StateObject_Demo: DemoProtocol {
     var title = "StateObject"
-    var infoFileName = "SwiftUI_v_Info"
+    var infoFileName = "SwiftUI_StateObject_Info"
     var demos: [any DemoPage.Type] = [
         SwiftUI_StateObject_DemoView.self
     ]
