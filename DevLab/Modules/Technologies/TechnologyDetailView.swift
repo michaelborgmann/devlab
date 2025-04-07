@@ -127,6 +127,8 @@ struct TechnologyDetailView: View {
             AnyView(DemoView(demo: SwiftUI_Binding_Demo()))
         case "SwiftUI_ObservedObject_Demo":
             AnyView(DemoView(demo: SwiftUI_ObservedObject_Demo()))
+        case "SwiftUI_StateObject_Demo":
+            AnyView(DemoView(demo: SwiftUI_StateObject_Demo()))
             
         // UIKit
         #if os(iOS)
