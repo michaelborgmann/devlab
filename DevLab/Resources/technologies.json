@@ -27,6 +27,12 @@
                             { "title": "@StateObject", "view": "SwiftUI_StateObject_Demo" },
                             { "title": "@EnvironmentObject", "view": "SwiftUI_EnvironmentObject_Demo" },
                         ]
+                    },
+                    {
+                        "name": "Navigation",
+                        "demos": [
+                            { "title": "NavigationStack", "view": "SwiftUI_NavigationStack_Demo" },
+                        ]
                     }
                 ]
             },
