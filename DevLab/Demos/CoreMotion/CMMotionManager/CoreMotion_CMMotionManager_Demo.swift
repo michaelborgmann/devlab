@@ -11,7 +11,8 @@ struct CoreMotion_CMMotionManager_Demo: DemoProtocol {
     var title = "CMMotionManager"
     var infoFileName = "CoreMotion_ CMMotionManager_Info"
     var demos: [any DemoPage.Type] = [
-        CoreMotion_CMMotionManager_ServiceAvailability_DemoView.self
+        CoreMotion_CMMotionManager_ServiceAvailability_DemoView.self,
+        CoreMotion_CMMotionManager_ServiceActive_DemoView.self
     ]
 }
 

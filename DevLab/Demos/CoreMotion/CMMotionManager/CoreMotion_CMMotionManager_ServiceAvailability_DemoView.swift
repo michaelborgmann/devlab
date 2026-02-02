@@ -31,7 +31,7 @@ struct CoreMotion_CMMotionManager_ServiceAvailability_DemoView: DemoPage {
             Spacer()
         }
         .onAppear {
-            viewModel.subtitle = "Availability of Services"
+            viewModel.subtitle = "Determining the Availability of Services"
         }
     }
     
