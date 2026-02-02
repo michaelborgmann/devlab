@@ -68,6 +68,17 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "CoreMotion",
+                "sections": [
+                    {
+                        "name": "CMMotionManager",
+                        "demos": [
+                            { "title": "Essentials", "view": "CoreMotion_CMMotionManager_Demo" },
+                        ]
+                    }
+                ]
             }
         ]
     },

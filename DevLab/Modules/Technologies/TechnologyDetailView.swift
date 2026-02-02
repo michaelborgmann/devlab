@@ -150,6 +150,10 @@ struct TechnologyDetailView: View {
         case "SpriteKit_SKScene_Demo":
             AnyView(DemoView(demo: SpriteKit_SKScene_Demo()))
             
+        // CoreMotion
+        case "CoreMotion_CMMotionManager_Demo":
+            AnyView(DemoView(demo: CoreMotion_CMMotionManager_Demo()))
+            
         // Angular
         case "Angular_Basic_Demo":
             AnyView(DemoView(demo: Angular_Basic_Demo()))
